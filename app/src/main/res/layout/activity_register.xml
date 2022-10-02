@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".RegisterActivity">
+
+    <TextView
+        android:id="@+id/register_titleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Regisztráció"
+        android:textColor="#0061ef"
+        android:textSize="26dp" />
+
+    <TextView
+        android:id="@+id/register_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_titleTv"
+        android:layout_marginTop="30dp"
+        android:text="Név"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/register_name_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_name_tv"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="Név"
+        android:inputType="textPersonName"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/register_email_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_name_et"
+        android:layout_marginTop="30dp"
+        android:text="Email"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/register_email_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_email_tv"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/register_password_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_email_et"
+        android:layout_marginTop="30dp"
+        android:text="Jelszó"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/register_password_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_password_tv"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="Jelszó"
+        android:inputType="textPassword"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/register_confirmpw_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_password_et"
+        android:layout_marginTop="30dp"
+        android:text="Jelszó megerősítése"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/register_confirmpw_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_confirmpw_tv"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="Jelszó megerősítése"
+        android:inputType="textPassword"
+        android:textSize="20sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/register_create_btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_confirmpw_et"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/custom_button"
+        android:text="Létrehozás"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF" />
+
+    <ProgressBar
+        android:id="@+id/register_progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_confirmpw_et"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+</RelativeLayout>

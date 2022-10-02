@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/vitaminTitleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Vitamin"
+        android:textSize="30sp" />
+    <Button
+        android:id="@+id/vitaminTimePickerBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Idő"
+        android:layout_centerInParent="true"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/alarmTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vitaminTitleTv"
+        android:layout_centerInParent="true"
+        android:textSize="20sp"
+        android:layout_marginTop="100dp"
+        android:text="Nincs időzítő beállítva" />
+
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerInParent="true"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:layout_below="@+id/vitaminTimePickerBtn"
+        android:text="Időzítő kikapcsolása" />
+
+
+</RelativeLayout>

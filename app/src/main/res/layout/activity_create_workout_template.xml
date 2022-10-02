@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/templateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Sablonok"
+        android:textSize="30sp" />
+
+
+    <EditText
+        android:id="@+id/templateNameEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_centerInParent="true"
+        android:hint="sablon neve"
+        android:layout_marginTop="100dp"
+        android:layout_below="@+id/templateTitle"/>
+
+    <EditText
+        android:id="@+id/noteEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="jegyzet"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/templateNameEt"/>
+
+    <EditText
+        android:id="@+id/timeEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="várható időtartam"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/noteEt"/>
+
+    <EditText
+        android:id="@+id/mouscleGroupEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Izomcsoport"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/timeEt"/>
+
+    <Button
+        android:id="@+id/workoutTemplateSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mentés"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/mouscleGroupEt"/>
+
+
+</RelativeLayout>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/loginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Bejelentkezés"
+        android:textColor="#0061ef"
+        android:textSize="26dp" />
+
+    <TextView
+        android:id="@+id/loginEmail_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginTitle"
+        android:layout_marginTop="50dp"
+        android:text="Email"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/loginEmail_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginEmail_tv"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:textSize="20sp"
+        android:hint="Email cím helye"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/loginPassword_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginEmail_et"
+        android:textSize="20sp"
+        android:text="Jelszó" />
+
+    <EditText
+        android:id="@+id/loginPassword_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginPassword_tv"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="jelszó"
+        android:textSize="20sp"
+        android:inputType="textPassword" />
+
+    <LinearLayout
+        android:id="@+id/below_data_lr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginPassword_et"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp">
+
+        <CheckBox
+            android:id="@+id/login_rememberme_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Emlékezz rám"
+            android:textColor="#0061ef"
+            />
+
+        <TextView
+            android:id="@+id/login_forgotpw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Elfelejtett jelszó"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/login_signinbtn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_icons_lr"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/custom_button"
+        android:text="Bejelentkezés"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF" />
+
+    <LinearLayout
+        android:id="@+id/login_icons_lr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/below_data_lr"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="40dp"
+            app:srcCompat="@drawable/google_grey" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/login_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_signinbtn"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:text="Nincs még fiókod?Regisztrálj!"
+        android:textColor="#0061ef" />
+
+    <ProgressBar
+        android:id="@+id/login_progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_icons_lr"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+
+</RelativeLayout>

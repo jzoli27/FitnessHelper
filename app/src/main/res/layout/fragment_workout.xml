@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/templateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:text="Sablonok"
+        android:textSize="30sp" />
+
+
+
+
+    <Button
+        android:id="@+id/newTemplateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Új sablon létrehozása"
+        android:textAllCaps="false"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/templateLv"
+        />
+
+    <ListView
+        android:id="@+id/templateLv"
+        android:layout_width="match_parent"
+        android:layout_height="335dp"
+        android:layout_below="@id/templateTitle"/>
+
+
+</RelativeLayout>
