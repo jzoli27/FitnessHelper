@@ -53,17 +53,12 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity implements Ed
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_workout_template);
 
-
-
         Bundle extras = getIntent().getExtras();
         if (extras != null){
             wtKey = extras.getString("wtKey");
             wtName = extras.getString("name");
 
         }
-
-
-
 
         recyclerView = findViewById(R.id.editWorkoutTemplateRv);
         workoutTemplateNameTv = findViewById(R.id.editWorkoutTemplateNameTv);
@@ -73,7 +68,6 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity implements Ed
 
 
         workoutTemplateNameTv.setText(wtName);
-
 
 
         initializeRecyclerView();
@@ -88,13 +82,8 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity implements Ed
                 intent.putExtra("wtKey", wtKey);
                 startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
                 //startActivity(intent);
-
             }
         });
-
-
-
-
     }
 
     //ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN |
@@ -111,7 +100,6 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity implements Ed
             //Toast.makeText(EditWorkoutTemplateActivity.this, "name: " + exercisesList.get(fromPosition).getExerciseName(), Toast.LENGTH_SHORT).show();
             Collections.swap(exercisesList, fromPosition, toPosition);
             recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
-
 
             return false;
         }
@@ -170,7 +158,6 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity implements Ed
 
             }
         });
-
     }
 
     @Override
@@ -195,6 +182,8 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity implements Ed
     public void onNoteClick(int position) {
         Intent intent = new Intent(this, Repetitions.class);
         intent.putExtra("excname1",exercisesList.get(position).getExerciseName().toString());
+        intent.putExtra("wtKey", wtKey);
+        intent.putExtra("excKey", exercisesList.get(position).getExerciseKey());
         startActivity(intent);
     }
 }

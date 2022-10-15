@@ -2,17 +2,18 @@ package com.example.fitnesshelper.models;
 
 public class Repetition {
 
-    private String series, weight, numberOfRepetitions, exerciseName, fitnessMachineKey;
+    private String series, weight, numberOfRepetitions, exerciseName, repetitionKey,fitnessMachineKey;
 
     public Repetition() {
 
     }
 
-    public Repetition(String series, String weight, String numberOfRepetitions, String exerciseName, String fitnessMachineKey) {
+    public Repetition(String series, String weight, String numberOfRepetitions, String exerciseName, String repetitionKey,String fitnessMachineKey) {
         this.series = series;
         this.weight = weight;
         this.numberOfRepetitions = numberOfRepetitions;
         this.exerciseName = exerciseName;
+        this.repetitionKey = repetitionKey;
         this.fitnessMachineKey = fitnessMachineKey;
     }
 
@@ -54,5 +55,13 @@ public class Repetition {
 
     public void setFitnessMachineKey(String fitnessMachineKey) {
         this.fitnessMachineKey = fitnessMachineKey;
+    }
+
+    public String getRepetitionKey() {
+        return repetitionKey;
+    }
+
+    public void setRepetitionKey(String repetitionKey) {
+        this.repetitionKey = repetitionKey;
     }
 }
