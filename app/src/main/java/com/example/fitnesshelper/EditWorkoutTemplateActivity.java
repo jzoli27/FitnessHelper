@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class EditWorkoutTemplateActivity extends AppCompatActivity {
+public class EditWorkoutTemplateActivity extends AppCompatActivity implements EditWorkoutTemplateAdapter.OnNoteListener {
 
     TextView workoutTemplateNameTv;
     RecyclerView recyclerView;
@@ -73,6 +73,8 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity {
 
 
         workoutTemplateNameTv.setText(wtName);
+
+
 
         initializeRecyclerView();
 
@@ -124,7 +126,7 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity {
     };
 
     private void initializeRecyclerView() {
-        editWorkoutTemplateAdapter = new EditWorkoutTemplateAdapter(this, exercisesList);
+        editWorkoutTemplateAdapter = new EditWorkoutTemplateAdapter(this, exercisesList,this);
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -189,4 +191,10 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onNoteClick(int position) {
+        Intent intent = new Intent(this, Repetitions.class);
+        intent.putExtra("excname1",exercisesList.get(position).getExerciseName().toString());
+        startActivity(intent);
+    }
 }
