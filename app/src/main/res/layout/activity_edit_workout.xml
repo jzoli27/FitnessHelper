@@ -6,87 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".EditWorkoutActivity">
 
-    <TextView
-        android:id="@+id/workoutTemplateName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_centerHorizontal="true"
-        />
-
-    <TextView
-        android:id="@+id/weightTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="(+KG)"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/workoutTemplateName"/>
-
 
     <EditText
-        android:id="@+id/weightEt"
-        android:layout_width="50dp"
+        android:id="@+id/exerciseNameEt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/weightTv"
-        android:layout_marginLeft="200dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:ems="10"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/repetitionTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/workoutTemplateName"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="32dp"
-        android:layout_toRightOf="@+id/weightTv"
-        android:text="Reps" />
-
-    <EditText
-        android:id="@+id/repetitionEt"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
+        android:hint="Gyakorlat neve"
         android:inputType="textPersonName"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@+id/weightEt"
-        android:layout_below="@+id/repetitionTv"/>
+        android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/exerciseNameTv"
+        android:id="@+id/mouscleGroupTv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_below="@+id/workoutTemplateName"/>
+        android:layout_height="50dp"
+        android:layout_below="@id/exerciseNameEt"
+        android:ems="10"
+        android:hint="Izomcsoport"
+        android:inputType="textPersonName"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/exerciseNameEt"
+        android:layout_toRightOf="@+id/mouscleGroupTv" />
+
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/mouscleGroupTv"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Leírás(Opcionális)"
+        android:inputType="textMultiLine" />
 
     <Button
         android:id="@+id/saveRepetitionBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mentés"
-        android:textAllCaps="false"
-        android:layout_marginTop="50dp"
+        android:layout_below="@id/description"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/repetitionEt"/>
-
-    <EditText
-        android:id="@+id/exerciseNameEt"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/saveRepetitionBtn"
-        android:ems="10"
-        android:hint="gyakorlat név"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/mouscleGroupEt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_below="@id/exerciseNameEt"
-        android:hint="izomcsoport" />
+        android:layout_marginTop="50dp"
+        android:text="Mentés"
+        android:textAllCaps="false" />
 
 
 </RelativeLayout>

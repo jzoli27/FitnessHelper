@@ -1,5 +1,7 @@
 package com.example.fitnesshelper.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,7 +18,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.fitnesshelper.EditWorkoutActivity;
 import com.example.fitnesshelper.R;
+import com.example.fitnesshelper.SelectableExercisesActivity;
 import com.example.fitnesshelper.adapters.EditWorkoutTemplateAdapter;
 import com.example.fitnesshelper.adapters.ExercisesAdapter;
 import com.example.fitnesshelper.models.Exercise;
@@ -37,6 +41,7 @@ public class NewExercisesFragment extends Fragment {
     private ArrayList<Exercise> exercisesList;
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference reference;
+    private int LAUNCH_SECOND_ACTIVITY = 1;
 
     ExercisesAdapter exercisesAdapter;
 
@@ -54,6 +59,16 @@ public class NewExercisesFragment extends Fragment {
         //searchView = view.findViewById(R.id.fragment_new_exercises_searchview);
 
         initializeRecyclerView();
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditWorkoutActivity.class);
+                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
+                //Intent intent = new Intent(getActivity(), EditWorkoutActivity.class);
+                //startActivity(intent);
+            }
+        });
         /*
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -74,6 +89,21 @@ public class NewExercisesFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == LAUNCH_SECOND_ACTIVITY) {
+            if(resultCode == Activity.RESULT_OK){
+
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                // Write your code if there's no result
+                initializeRecyclerView();
+            }
+        }
     }
 
     /*
@@ -99,6 +129,7 @@ public class NewExercisesFragment extends Fragment {
 
         reference = FirebaseDatabase.getInstance().getReference("Exercises");
 
+        exercisesList.clear();
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

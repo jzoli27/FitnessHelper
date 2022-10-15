@@ -2,4 +2,13 @@
     <string name="app_name">FitnessHelper</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string-array name="categories">
+        <item></item>
+        <item>Mell</item>
+        <item>Hát</item>
+        <item>Váll</item>
+        <item>Láb</item>
+    </string-array>
+
 </resources>
