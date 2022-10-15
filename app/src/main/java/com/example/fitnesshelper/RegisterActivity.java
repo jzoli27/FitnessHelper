@@ -128,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
                             });
                         }else{
                             progressBar.setVisibility(View.INVISIBLE);
-                            Toast.makeText(RegisterActivity.this, "Sikertelen regisztráció!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Nem jó,Sikertelen regisztráció!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -73,12 +73,13 @@
             />
 
         <TextView
-            android:id="@+id/login_forgotpw"
+            android:id="@+id/login_forgotpwTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Elfelejtett jelszó"
-            android:textSize="20sp"/>
+            android:textColor="#0061ef" />
     </LinearLayout>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login_signinbtn"
@@ -100,7 +101,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/signinWithGoogleBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -113,10 +114,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/login_signinbtn"
-        android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:text="Nincs még fiókod?Regisztrálj!"
         android:textColor="#0061ef" />
+
 
     <ProgressBar
         android:id="@+id/login_progressBar"

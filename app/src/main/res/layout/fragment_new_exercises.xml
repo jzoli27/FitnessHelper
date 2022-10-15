@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/fragment_new_exercises_searchview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:queryHint="Search here..."
+        app:iconifiedByDefault="false"/>
+        -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_new_exercises_Rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <!-- android:layout_below="@+id/fragment_new_exercises_searchview"> -->
+
+     </androidx.recyclerview.widget.RecyclerView>
+
+     <com.google.android.material.floatingactionbutton.FloatingActionButton
+         android:id="@+id/fragment_new_exercises_addbtn"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="315dp"
+         android:layout_marginTop="500dp"
+         android:backgroundTint="#0061ef"
+         android:clickable="true"
+         app:tint="@color/white"
+         app:srcCompat="@drawable/ic_add_black" />
+
+
+ </RelativeLayout>

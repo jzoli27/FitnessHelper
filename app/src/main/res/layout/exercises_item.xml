@@ -5,7 +5,7 @@
 
 
     <TextView
-        android:id="@+id/exc_row_item_name_tv"
+        android:id="@+id/excercises_row_item_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -15,36 +15,15 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/exc_row_item_mgroup_tv"
+        android:id="@+id/excercises_row_item_mgroup_tv"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/exc_row_item_name_tv"
+        android:layout_below="@+id/excercises_row_item_name_tv"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="Izomcsoport:"
         android:textSize="16sp" />
-
-    <CheckBox
-        android:id="@+id/exc_row_item_checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="35dp"
-        android:layout_toEndOf="@+id/exc_row_item_mgroup_tv"
-        android:text="" />
-
-
-    <TextView
-        android:id="@+id/border2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_alignParentBottom="true"
-        android:background="#808080"/>
-
-
 
 
 </RelativeLayout>

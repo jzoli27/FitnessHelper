@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.fitnesshelper.fragments.ExercisesFragment;
+import com.example.fitnesshelper.fragments.NewExercisesFragment;
 import com.example.fitnesshelper.fragments.ProfileFragment;
 import com.example.fitnesshelper.fragments.ReminderFragment;
 import com.example.fitnesshelper.fragments.SettingsFragment;
@@ -91,10 +92,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProfileFragment()).commit();
                 break;
+            case R.id.nav_planning:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new ReminderFragment()).commit();
+                break;
             case R.id.nav_exercises:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        //new ExercisesFragment()).commit();
-                startActivity(new Intent(MainActivity.this,EditWorkoutActivity.class));
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new NewExercisesFragment()).commit();
+                //startActivity(new Intent(MainActivity.this,EditWorkoutActivity.class));
                 break;
             case R.id.nav_workout:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -104,10 +109,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_vitamin:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new VitaminFragment()).commit();
-                break;
-            case R.id.nav_reminder:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ReminderFragment()).commit();
                 break;
             case R.id.nav_settings:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

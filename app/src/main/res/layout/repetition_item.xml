@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditWorkoutActivity">
+
+    <TextView
+        android:id="@+id/repetitionWeightTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:text="(+KG)" />
+
+
+    <EditText
+        android:id="@+id/repetitionWeightEt"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/repetitionWeightTv"
+        android:layout_marginLeft="200dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/repetitionTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_toRightOf="@+id/repetitionWeightTv"
+        android:text="Ismétlés" />
+
+    <EditText
+        android:id="@+id/repetitionEt"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/repetitionWeightEt"
+        android:layout_below="@+id/repetitionTv"/>
+
+    <TextView
+        android:id="@+id/repetitionSerieTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:text="Sorozat" />
+
+    <EditText
+        android:id="@+id/repetitionSerieEt"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@+id/repetitionSerieTv"/>
+
+</RelativeLayout>

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -86,7 +88,7 @@ public class SelectableExercisesActivity extends AppCompatActivity {
                         exercisesStatus.add(exercise);
 
 //                       Ez müködő kód.
-                        UsersReference.child(uid).child("Templates").child(wtKey).child("Exercises").push().setValue(exercise);
+                        UsersReference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercise.getExerciseKey()).setValue(exercise);
 
                         //talán itt lehetne updatelni az állapotot miután már
                         // hozzáadtuk a listához a true-kat(kijelölteket)
@@ -96,8 +98,11 @@ public class SelectableExercisesActivity extends AppCompatActivity {
                         //update: talán single listenerrel müködhet -- eddig jónak tűnik.
                     }
                 }
-                Toast.makeText(SelectableExercisesActivity.this, "size: " + exercisesStatus.size(), Toast.LENGTH_SHORT).show();
-                onBackPressed();
+                //Toast.makeText(SelectableExercisesActivity.this, "size: " + exercisesStatus.size(), Toast.LENGTH_SHORT).show();
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_CANCELED, returnIntent);
+                finish();
+                //onBackPressed();
             }
 
             @Override

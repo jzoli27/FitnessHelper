@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -43,10 +45,14 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity {
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     String wtKey,wtName;
+    int LAUNCH_SECOND_ACTIVITY = 1;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_workout_template);
+
 
 
         Bundle extras = getIntent().getExtras();
@@ -78,10 +84,14 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SelectableExercisesActivity.class);
                 intent.putExtra("wtKey", wtKey);
-                startActivity(intent);
+                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
+                //startActivity(intent);
 
             }
         });
+
+
+
 
     }
 
@@ -89,7 +99,7 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity {
     //        ItemTouchHelper.START | ItemTouchHelper.END, 0) {
 
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN |
-                ItemTouchHelper.START | ItemTouchHelper.END, 0) {
+                ItemTouchHelper.START | ItemTouchHelper.END, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
 
@@ -106,6 +116,8 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            reference = FirebaseDatabase.getInstance().getReference("Users");
+            reference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercisesList.get(viewHolder.getAdapterPosition()).getExerciseKey()).removeValue();
             exercisesList.remove(viewHolder.getAdapterPosition());
             editWorkoutTemplateAdapter.notifyDataSetChanged();
         }
@@ -135,5 +147,46 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity {
         recyclerView.setAdapter(editWorkoutTemplateAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+    private void updateListForRv(){
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+
+        exercisesList.clear();
+        reference.child(uid).child("Templates").child(wtKey).child("Exercises").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Exercise exercise = dataSnapshot.getValue(Exercise.class);
+
+                    exercisesList.add(exercise);
+                    editWorkoutTemplateAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LAUNCH_SECOND_ACTIVITY) {
+            if(resultCode == Activity.RESULT_OK){
+
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Toast.makeText(this, "most lett nyomva a result", Toast.LENGTH_SHORT).show();
+                //exercisesList.clear();
+                updateListForRv();
+                //initializeRecyclerView();
+                // Write your code if there's no result
+            }
+        }
+    }
+
 
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,10 +50,12 @@ public class EditWorkoutTemplateAdapter extends RecyclerView.Adapter<EditWorkout
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView excNameTv;
+        ImageView imageView;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             excNameTv = itemView.findViewById(R.id.exc_editWorkoutTemplateTv);
+            imageView = itemView.findViewById(R.id.exc_editWorkoutTemplateIv);
         }
 
     }

@@ -21,10 +21,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.fitnesshelper.LoginActivity;
 import com.example.fitnesshelper.MainActivity;
 import com.example.fitnesshelper.models.Image;
 import com.example.fitnesshelper.R;
 import com.example.fitnesshelper.models.User;
+import com.google.android.gms.auth.api.identity.SignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,7 +53,7 @@ public class ProfileFragment extends Fragment {
     TextView nameTv,emailTv;
     private Uri imageUri;
     private ProgressBar profile_progressBar;
-    private Button fireStoreBtn;
+    private Button  logoutBtn;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid().toString()).child("profileimg");
@@ -61,6 +64,7 @@ public class ProfileFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private static final String TAG = "MainActivity";
+    private SignInClient mGoogleSignInClient;
 
     @Nullable
     @Override
@@ -72,10 +76,22 @@ public class ProfileFragment extends Fragment {
         profile_progressBar = view.findViewById(R.id.profile_progressBar);
         nameTv = view.findViewById(R.id.profile_nameTv);
         emailTv = view.findViewById(R.id.profile_emailTv);
+        logoutBtn = view.findViewById(R.id.logoutBtn);
 
         profile_progressBar.setVisibility(View.INVISIBLE);
 
-        //fireStoreBtn = view.findViewById(R.id.firestoreBtn);
+        //mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         imgLoaderIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +103,10 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
+        if (mAuth.getCurrentUser() != null){
+            emailTv.setText(mAuth.getCurrentUser().getEmail().toString());
+        }
 
         userDbReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -105,35 +125,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        /*
-        fireStoreBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Create a new user with a first and last name
-                Map<String, Object> user = new HashMap<>();
-                user.put("first", "Ada");
-                user.put("last", "Lovelace");
-                user.put("born", 1815);
-
-                // Add a new document with a generated ID
-                db.collection("users")
-                        .add(user)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                Toast.makeText(getActivity(), "Firestore", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
-                            }
-                        });
-            }
-        });
-         */
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

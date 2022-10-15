@@ -7,10 +7,19 @@
 
     <TextView
         android:id="@+id/exc_editWorkoutTemplateTv"
-        android:layout_width="wrap_content"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:text="Sablon"
         android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/exc_editWorkoutTemplateIv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toEndOf="@+id/exc_editWorkoutTemplateTv"
+        android:src="@drawable/ic_options">
+
+    </ImageView>
 
 
 </RelativeLayout>

@@ -4,23 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditWorkoutTemplateActivity">
-
+    tools:context=".EditWorkoutActivity">
 
     <TextView
-        android:id="@+id/editWorkoutTemplateNameTv"
+        android:id="@+id/repetitionExerciseTitleTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:text="TextView"
-        android:textSize="30sp" />
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        />
+
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/editWorkoutTemplateRv"
+        android:id="@+id/repetitionExerciseRv"
         android:layout_width="match_parent"
         android:layout_height="485dp"
-        android:layout_below="@id/editWorkoutTemplateNameTv"
-        android:layout_marginTop="50dp"
+        android:layout_below="@id/repetitionExerciseTitleTv"
+        android:layout_marginTop="30dp"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp" />
 
@@ -28,7 +29,9 @@
         android:id="@+id/addToWorkoutTemplateBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editWorkoutTemplateRv"
+        android:layout_below="@id/repetitionExerciseRv"
         android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/ic_add_white" />
+
+
 </RelativeLayout>
