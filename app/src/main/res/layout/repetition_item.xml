@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".EditWorkoutActivity">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/repetitionWeightTv"
@@ -35,11 +32,11 @@
         android:id="@+id/repetitionEt"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:layout_below="@+id/repetitionTv"
         android:layout_marginLeft="20dp"
         android:layout_toRightOf="@+id/repetitionWeightEt"
-        android:layout_below="@+id/repetitionTv"/>
+        android:ems="10"
+        android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/repetitionSerieTv"
@@ -52,9 +49,9 @@
         android:id="@+id/repetitionSerieEt"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:layout_below="@+id/repetitionSerieTv"
         android:layout_marginLeft="50dp"
-        android:layout_below="@+id/repetitionSerieTv"/>
+        android:ems="10"
+        android:inputType="textPersonName" />
 
 </RelativeLayout>
