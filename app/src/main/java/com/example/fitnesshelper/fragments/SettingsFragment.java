@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.fitnesshelper.DetailsActivity;
+import com.example.fitnesshelper.ExercisesActivity;
 import com.example.fitnesshelper.R;
 
 import javax.xml.transform.Result;

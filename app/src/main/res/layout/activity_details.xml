@@ -7,28 +7,57 @@
     tools:context=".DetailsActivity">
 
     <TextView
+        android:id="@+id/machineTitleTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Beállítások"
+        android:text="Gép"
         android:textSize="30sp" />
 
+
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/saveMachineImageBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Camera"></Button>
+        android:text="Mentés"
+        android:textAllCaps="false"></Button>
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_above="@+id/button1"
+        android:layout_below="@+id/machineTitleTv"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:src="@mipmap/ic_launcher"></ImageView>
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"></ImageView>
 
+    <ImageView
+        android:id="@+id/cameraIv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toEndOf="@+id/machineTitleTv"
+
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_camera" />
+
+    <TextView
+        android:id="@+id/detailsMachineNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gép neve:"
+        android:textSize="25sp"
+        android:layout_below="@id/imageView1"/>
+
+    <EditText
+        android:id="@+id/detailsMachineNameEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="ide írj"
+        android:layout_toEndOf="@id/detailsMachineNameTv"
+        android:layout_below="@id/imageView1"/>
 
 
 </RelativeLayout>

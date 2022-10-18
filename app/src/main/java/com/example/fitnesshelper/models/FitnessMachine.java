@@ -2,16 +2,15 @@ package com.example.fitnesshelper.models;
 
 public class FitnessMachine {
 
-    private String machineName, imgLink, seatHeight, fmKey;
+    private String machineName, imgLink, fmKey;
 
     public FitnessMachine() {
 
     }
 
-    public FitnessMachine(String machineName, String imgLink, String seatHeight, String fmKey) {
+    public FitnessMachine(String machineName, String imgLink, String fmKey) {
         this.machineName = machineName;
         this.imgLink = imgLink;
-        this.seatHeight = seatHeight;
         this.fmKey = fmKey;
     }
 
@@ -29,14 +28,6 @@ public class FitnessMachine {
 
     public void setImgLink(String imgLink) {
         this.imgLink = imgLink;
-    }
-
-    public String getSeatHeight() {
-        return seatHeight;
-    }
-
-    public void setSeatHeight(String seatHeight) {
-        this.seatHeight = seatHeight;
     }
 
     public String getFmKey() {

@@ -114,7 +114,7 @@ public class ProfileFragment extends Fragment {
                 User user = new User();
                 user = snapshot.getValue(User.class);
                 if (user != null){
-                    nameTv.setText(user.getName());
+                    //nameTv.setText(user.getName());
                     emailTv.setText(user.getEmail());
                 }
             }
