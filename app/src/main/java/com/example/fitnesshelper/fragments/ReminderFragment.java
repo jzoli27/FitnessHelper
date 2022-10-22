@@ -5,18 +5,28 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.fitnesshelper.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,12 +39,16 @@ public class ReminderFragment extends Fragment {
 
     private TextView mShowSelectedDateText;
     private ArrayAdapter<String> arrayAdapter;
+    DatabaseReference fromRef;
+    DatabaseReference toRef;
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+    String date;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_reminder, container,false);
+        View view = inflater.inflate(R.layout.fragment_reminder, container, false);
 
         datesByDatePicker = new ArrayList<>();
         listOfDates = view.findViewById(R.id.listOfDates);
@@ -61,6 +75,14 @@ public class ReminderFragment extends Fragment {
         // now create the instance of the material date
         // picker
         final MaterialDatePicker materialDatePicker = materialDateBuilder.build();
+
+        listOfDates.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                copyRecord();
+                //Toast.makeText(getActivity(), "" + datesByDatePicker.get(i).toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // handle select date button which opens the
         // material design date picker
@@ -89,6 +111,8 @@ public class ReminderFragment extends Fragment {
                         // button that is ok button update the
                         // selected date
                         mShowSelectedDateText.setText("Selected Date is : " + materialDatePicker.getHeaderText());
+                        //Toast.makeText(getActivity(), "date: " +materialDatePicker.getHeaderText() , Toast.LENGTH_SHORT).show();
+                        date = materialDatePicker.getHeaderText();
                         datesByDatePicker.add(materialDatePicker.getHeaderText().toString());
                         arrayAdapter.notifyDataSetChanged();
 
@@ -101,5 +125,50 @@ public class ReminderFragment extends Fragment {
         listOfDates.setAdapter(arrayAdapter);
 
         return view;
+    }
+    public void copyRecord() {
+        fromRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        toRef = FirebaseDatabase.getInstance().getReference().child("PlannedWorkout");
+
+        //toRef.child(date).setValue("hello");
+
+        fromRef.child(uid).child("Templates").child("-NBnHwbvMeXRiEVlw2tm").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                /*
+                if (snapshot.getValue() != null){
+                    Toast.makeText(getActivity(),"NEM üres a snapshot" , Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getActivity(),"Üres a snapshot" , Toast.LENGTH_SHORT).show();
+                }
+                 */
+                toRef.child(date).setValue(snapshot.getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isComplete()) {
+                            Toast.makeText(getActivity(), "siker", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Rossz", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                /*
+                for (DataSnapshot child: snapshot.getChildren()) {
+                    String wtKey = child.getKey();
+                    if (wtKey.equals("-NBnHwbvMeXRiEVlw2tm")) {
+
+
+
+                    }
+                }
+
+                 */
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

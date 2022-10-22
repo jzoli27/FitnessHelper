@@ -66,7 +66,7 @@ public class Repetitions extends AppCompatActivity {
                 String actualserie = String.valueOf(reps.size()+1);
                 reference = FirebaseDatabase.getInstance().getReference("Users");
                 repetitionKey = reference.child(uid).child("Templates").child(wtKey).child("Exercises").child(excKey).child("Repetition").push().getKey().toString();
-                Repetition rep = new Repetition(actualserie,"0","0",excname,repetitionKey,"");
+                Repetition rep = new Repetition(actualserie,"0","0",excname,"0",repetitionKey,"");
                 //Toast.makeText(Repetitions.this, "size: " + reps.size(), Toast.LENGTH_SHORT).show();
 
                 reference.child(uid).child("Templates").child(wtKey).child("Exercises").child(excKey).child("Repetition").child(repetitionKey).setValue(rep)
@@ -86,7 +86,7 @@ public class Repetitions extends AppCompatActivity {
     }
 
     private void initializeRecyclerView() {
-        repetitionAdapter = new RepetitionAdapter(this, reps);
+        repetitionAdapter = new RepetitionAdapter(this, reps, uid, wtKey, excKey);
 
         reps.clear();
 
