@@ -3,6 +3,9 @@
 
 
     <item
+        android:id="@+id/action_popup_enable"
+        android:title="Enable fields" />
+    <item
         android:id="@+id/action_popup_edit"
         android:title="Edit" />
     <item

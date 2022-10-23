@@ -55,15 +55,11 @@ public class RepetitionAdapter extends RecyclerView.Adapter<RepetitionAdapter.My
     public void onBindViewHolder(@NonNull RepetitionAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
 
-        if (reps.get(position).getState().equals("0")){
-            holder.repetitionSerieEt.setEnabled(true);
-            holder.repetitionWeightEt.setEnabled(true);
-            holder.repetitionEt.setEnabled(true);
-        }else {
-            holder.repetitionSerieEt.setEnabled(false);
-            holder.repetitionWeightEt.setEnabled(false);
-            holder.repetitionEt.setEnabled(false);
-        }
+
+        holder.repetitionSerieEt.setEnabled(false);
+        holder.repetitionWeightEt.setEnabled(false);
+        holder.repetitionEt.setEnabled(false);
+
 
         holder.repetitionSerieEt.setText(reps.get(position).getSeries());
         holder.repetitionSerieEt.addTextChangedListener(new TextWatcher() {
@@ -162,9 +158,16 @@ public class RepetitionAdapter extends RecyclerView.Adapter<RepetitionAdapter.My
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()){
+                case R.id.action_popup_enable:
+                    repetitionSerieEt.setEnabled(true);
+                    repetitionWeightEt.setEnabled(true);
+                    repetitionEt.setEnabled(true);
+                    return true;
                 case R.id.action_popup_edit:
-                    Toast.makeText(context, "action_popup_edit at position: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                    //repetitionSerieEt.setEnabled(false);
+                    //Toast.makeText(context, "action_popup_edit at position: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                    repetitionSerieEt.setEnabled(false);
+                    repetitionWeightEt.setEnabled(false);
+                    repetitionEt.setEnabled(false);
                     updateSerie(getAdapterPosition());
                     return true;
                 case R.id.action_popup_delete:
