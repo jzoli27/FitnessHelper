@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,9 +81,16 @@ public class Repetitions extends AppCompatActivity {
                                 }
                             }
                         });
-                initializeRecyclerView();
+                reps.add(reps.size(),rep);
+                repetitionAdapter.notifyItemInserted(reps.size());
+                //initializeRecyclerView();
             }
         });
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        return super.onContextItemSelected(item);
     }
 
     private void initializeRecyclerView() {
