@@ -53,6 +53,7 @@ public class ReminderFragment extends Fragment {
         datesByDatePicker = new ArrayList<>();
         listOfDates = view.findViewById(R.id.listOfDates);
 
+
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, datesByDatePicker);
 
 
@@ -95,7 +96,9 @@ public class ReminderFragment extends Fragment {
                         // associated with the material design
                         // date picker tag is to get any error
                         // in logcat
+
                         materialDatePicker.show(getParentFragmentManager(), "MATERIAL_DATE_PICKER");
+
                     }
                 });
 
@@ -110,12 +113,15 @@ public class ReminderFragment extends Fragment {
                         // if the user clicks on the positive
                         // button that is ok button update the
                         // selected date
+                        /*
                         mShowSelectedDateText.setText("Selected Date is : " + materialDatePicker.getHeaderText());
-                        //Toast.makeText(getActivity(), "date: " +materialDatePicker.getHeaderText() , Toast.LENGTH_SHORT).show();
                         date = materialDatePicker.getHeaderText();
                         datesByDatePicker.add(materialDatePicker.getHeaderText().toString());
                         arrayAdapter.notifyDataSetChanged();
+                        */
 
+                        getParentFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                new WorkoutFragment()).commit();
                         // in the above statement, getHeaderText
                         // is the selected date preview from the
                         // dialog

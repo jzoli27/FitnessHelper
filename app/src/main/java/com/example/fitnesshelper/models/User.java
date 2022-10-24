@@ -2,12 +2,13 @@ package com.example.fitnesshelper.models;
 
 public class User {
 
-    private String name,email,password;
+    private String name,email,password, profileImgLink;
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, String profileImgLink) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.profileImgLink = profileImgLink;
     }
 
     public User() {
@@ -36,5 +37,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProfileImgLink() {
+        return profileImgLink;
+    }
+
+    public void setProfileImgLink(String profileImgLink) {
+        this.profileImgLink = profileImgLink;
     }
 }

@@ -110,7 +110,7 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void uploadToFirebase(Uri imageUri) {
-        StorageReference fileref = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+        StorageReference fileref = storageReference.child("FitnessMachine").child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
         fileref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -123,7 +123,7 @@ public class DetailsActivity extends AppCompatActivity {
                         String machineName = detailsMachineNameEt.getText().toString();
                         FitnessMachine fitnessMachine = new FitnessMachine(machineName,uri.toString(),imageid);
 
-                        db =  FirebaseDatabase.getInstance().getReference().child("FitnessMachine");
+                        db =  FirebaseDatabase.getInstance().getReference().child("FitnessMachine").child(fitnessMachine.getFmKey());
                         db.setValue(fitnessMachine).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

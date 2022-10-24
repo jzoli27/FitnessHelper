@@ -30,6 +30,7 @@ import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -91,6 +92,12 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        //NavigationView navigationView = view.findViewById(R.id.nav_view);
+        //Próba a nav_header átírására
+        //View headerView = navigationView.getHeaderView(0);
+        //TextView navUsername = (TextView) headerView.findViewById(R.id.nav_header_nameTv);
+        //navUsername.setText("teszt");
+
 
 
         imgLoaderIv.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +123,9 @@ public class ProfileFragment extends Fragment {
                 if (user != null){
                     //nameTv.setText(user.getName());
                     emailTv.setText(user.getEmail());
+                    if (!user.getProfileImgLink().equals("")){
+                        Picasso.get().load(user.getProfileImgLink()).into(profileiv);
+                    }
                 }
             }
 
@@ -125,7 +135,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
+        /*
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -143,6 +153,8 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+         */
+
         return view;
     }
 
@@ -154,27 +166,32 @@ public class ProfileFragment extends Fragment {
             imageUri = data.getData();
             profileiv.setImageURI(imageUri);
 
+            /* ez jó profilkép betöltésre, csak ameddig lehet spórolok a firebase müveletekkel.
             if (imageUri != null){
                 uploadToFirebase(imageUri);
 
             }
+
+             */
         }
     }
 
 
     private void uploadToFirebase(Uri imageUri) {
         profile_progressBar.setVisibility(View.VISIBLE);
-        StorageReference fileref = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+        StorageReference fileref = storageReference.child("ProfileImages").child(mAuth.getCurrentUser().getUid().toString()).child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
         fileref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 fileref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Image image = new Image(uri.toString());
-                        databaseReference.setValue(image);
+                        //Image image = new Image(uri.toString());
+                        //userDbReference.child("profileImgLink").setValue(image);
 
                         String link = uri.toString();
+                        userDbReference.child("profileImgLink").setValue(uri.toString());
+
                         profile_progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(getActivity(), "Profilkép sikeresen feltöltve!", Toast.LENGTH_SHORT).show();
                     }
