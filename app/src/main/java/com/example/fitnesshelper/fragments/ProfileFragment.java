@@ -54,11 +54,12 @@ public class ProfileFragment extends Fragment {
     TextView nameTv,emailTv;
     private Uri imageUri;
     private ProgressBar profile_progressBar;
-    private Button  logoutBtn;
+    private Button  logoutBtn, logBtn;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid().toString()).child("profileimg");
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
 
     private DatabaseReference userDbReference = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid().toString());
 
@@ -78,6 +79,7 @@ public class ProfileFragment extends Fragment {
         nameTv = view.findViewById(R.id.profile_nameTv);
         emailTv = view.findViewById(R.id.profile_emailTv);
         logoutBtn = view.findViewById(R.id.logoutBtn);
+        logBtn = view.findViewById(R.id.logBtn);
 
         profile_progressBar.setVisibility(View.INVISIBLE);
 
@@ -89,6 +91,40 @@ public class ProfileFragment extends Fragment {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        logBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userDbReference.child("Templates").child("-NF7dqQFJZmBYC0gJhh2").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot current_data: snapshot.getChildren()){
+                            String key = current_data.getKey();
+                            Log.d("FOR1", "data1: " + key );
+
+                            for(DataSnapshot current_user_data: current_data.getChildren()){
+
+                                Log.d("FOR2", "FOR2, Handling data "+current_user_data.getKey());
+
+                                for(DataSnapshot for3: current_user_data.getChildren()){
+                                    Log.d("FOR3", "FOR3, Handling data "+for3.getKey());
+
+                                    for(DataSnapshot for4: for3.getChildren()){
+                                        Log.d("FOR4", "Handling data "+for4.getKey());
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
 
