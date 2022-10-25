@@ -21,15 +21,47 @@
         android:layout_centerHorizontal="true"
         />
 
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/alarmTv"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/startBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:layout_toEndOf="@+id/chronometer"
+        android:layout_below="@+id/alarmTv"/>
+
+    <Button
+        android:id="@+id/pauseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pause"
+        android:layout_toEndOf="@+id/startBtn"
+        android:layout_below="@+id/alarmTv"/>
+
+    <Button
+        android:id="@+id/resetBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        android:layout_toEndOf="@+id/pauseBtn"
+        android:layout_below="@+id/alarmTv"/>
+
+
     <TextView
         android:id="@+id/alarmTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/vitaminTitleTv"
         android:layout_centerInParent="true"
-        android:textSize="20sp"
         android:layout_marginTop="100dp"
-        android:text="Nincs időzítő beállítva" />
+        android:text="Nincs időzítő beállítva"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/cancelBtn"

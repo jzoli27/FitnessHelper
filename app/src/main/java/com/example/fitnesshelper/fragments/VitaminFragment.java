@@ -7,12 +7,15 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,10 +29,14 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class VitaminFragment extends Fragment {
-    Button vitaminTimePickerBtn, cancelBtn;
+    Button vitaminTimePickerBtn, cancelBtn, startBtn, pauseBtn , resetBtn;
     int hour, minute;
     TextView vitaminTitleTv, alarmTv;
     AlarmManager alarmManager;
+    private Chronometer chronometer;
+    private boolean running;
+    private long pauseOffset;
+
 
     @Nullable
     @Override
@@ -41,6 +48,46 @@ public class VitaminFragment extends Fragment {
 
         vitaminTitleTv = view.findViewById(R.id.vitaminTitleTv);
         alarmTv = view.findViewById(R.id.alarmTv);
+
+        chronometer = view.findViewById(R.id.chronometer);
+        startBtn = view.findViewById(R.id.startBtn);
+        pauseBtn = view.findViewById(R.id.pauseBtn);
+        resetBtn = view.findViewById(R.id.resetBtn);
+        //chronometer.setFormat("Time: %s");
+        //chronometer.setBase(SystemClock.elapsedRealtime());
+
+        /* 10 sec után visszateszi 0-ra az időt
+        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 10000) {
+                    chronometer.setBase(SystemClock.elapsedRealtime());
+                    Toast.makeText(getActivity(), "Bing!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        */
+        startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startChronometer(view);
+            }
+        });
+
+        pauseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pauseChronometer(view);
+            }
+        });
+
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetChronometer(view);
+            }
+        });
+
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,10 +129,28 @@ public class VitaminFragment extends Fragment {
         });
 
 
-
-
-
         return view;
+    }
+
+    public void startChronometer(View v) {
+        if (!running) {
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.start();
+            running = true;
+        }
+    }
+
+    public void pauseChronometer(View v) {
+        if (running) {
+            chronometer.stop();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            running = false;
+        }
+    }
+
+    public void resetChronometer(View v) {
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        pauseOffset = 0;
     }
 
     private void startalarm(Calendar c) {

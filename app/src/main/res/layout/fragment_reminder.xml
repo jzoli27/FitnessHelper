@@ -8,10 +8,7 @@
     tools:context=".MainActivity"
     tools:ignore="HardcodedText">
 
-    <!--make sure to give the appropriate IDs to textView
-        and the button to handle them in MainActivity.java-->
 
-    <!--simple text view to show the selected date by the user-->
     <TextView
         android:id="@+id/show_selected_date"
         android:layout_width="wrap_content"
@@ -21,7 +18,7 @@
         android:text="Selected Date is : "
         android:textSize="18sp" />
 
-    <!--button to open the material design date picker dialog-->
+
     <Button
         android:id="@+id/pick_date_button"
         android:layout_width="wrap_content"
