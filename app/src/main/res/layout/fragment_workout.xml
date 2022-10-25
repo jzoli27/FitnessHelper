@@ -30,7 +30,7 @@
         android:id="@+id/templateLv"
         android:layout_width="match_parent"
         android:layout_height="335dp"
-        android:layout_below="@id/templateTitle"/>
+        android:layout_below="@id/templateTitle" />
 
 
 </RelativeLayout>

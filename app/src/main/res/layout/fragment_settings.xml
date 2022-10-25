@@ -4,11 +4,18 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/settings_machinesTitleTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="Beállítások"
         android:textSize="30sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/setting_machinesRv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/settings_machinesTitleTv" />
 
     <Button
         android:id="@+id/picturesBtn"
