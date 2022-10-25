@@ -3,6 +3,7 @@ package com.example.fitnesshelper.models;
 public class Exercise {
     private String exerciseName, exerciseType, description, muscleGroup, icon, exerciseKey;
     private Boolean selected;
+    //private Boolean expanded;
 
     public Exercise() {
 
@@ -16,7 +17,18 @@ public class Exercise {
         this.icon = icon;
         this.exerciseKey = exerciseKey;
         this.selected = selected;
+        //this.expanded = expanded;
     }
+    /*
+    public Boolean getExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(Boolean expanded) {
+        this.expanded = expanded;
+    }
+
+     */
 
     public String getExerciseName() {
         return exerciseName;

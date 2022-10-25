@@ -9,9 +9,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fitnesshelper.R;
@@ -65,7 +67,9 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
         holder.excName.setText(exerciseList.get(position).getExerciseName());
         holder.excMouscle.setText(exerciseList.get(position).getMuscleGroup());
 
-
+        holder.excercises_row_item_description.setText(exerciseList.get(position).getDescription());
+        boolean isExpanded = exerciseList.get(position).getSelected();
+        holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -75,12 +79,36 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView excName, excMouscle;
+        TextView excName, excMouscle,excercises_row_item_description;
+        RelativeLayout main_relativeLayout;
+        ConstraintLayout expandableLayout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             excName = itemView.findViewById(R.id.excercises_row_item_name_tv);
             excMouscle = itemView.findViewById(R.id.excercises_row_item_mgroup_tv);
+            excercises_row_item_description = itemView.findViewById(R.id.excercises_row_item_description);
+
+            main_relativeLayout = itemView.findViewById(R.id.excercises_row_item_mainlayout);
+            expandableLayout = itemView.findViewById(R.id.expandablelayout);
+
+            main_relativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Exercise exercise = exerciseList.get(getAdapterPosition());
+                    exercise.setSelected(!exercise.getSelected());
+                    notifyItemChanged(getAdapterPosition());
+                }
+            });
+
+            excName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Exercise exercise = exerciseList.get(getAdapterPosition());
+                    //exercise.setSelected(!exercise.getSelected());
+                    //notifyItemChanged(getAdapterPosition());
+                }
+            });
         }
     }
 
