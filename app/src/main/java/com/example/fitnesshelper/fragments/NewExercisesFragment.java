@@ -45,7 +45,8 @@ public class NewExercisesFragment extends Fragment {
 
     ExercisesAdapter exercisesAdapter;
 
-    //SearchView searchView;
+    SearchView searchView;
+
 
     @Nullable
     @Override
@@ -56,7 +57,8 @@ public class NewExercisesFragment extends Fragment {
 
         exercisesRv = view.findViewById(R.id.fragment_new_exercises_Rv);
         addBtn = view.findViewById(R.id.fragment_new_exercises_addbtn);
-        //searchView = view.findViewById(R.id.fragment_new_exercises_searchview);
+        searchView = view.findViewById(R.id.fragment_new_exercises_searchview);
+        searchView.clearFocus();
 
         initializeRecyclerView();
 
@@ -69,8 +71,8 @@ public class NewExercisesFragment extends Fragment {
                 //startActivity(intent);
             }
         });
-        /*
-        searchView.clearFocus();
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -84,12 +86,37 @@ public class NewExercisesFragment extends Fragment {
             }
         });
 
-         */
-
-
 
         return view;
     }
+
+
+    /*
+    private void filter(String text) {
+        // creating a new array list to filter our data.
+        ArrayList<Exercise> filteredlist = new ArrayList<Exercise>();
+
+        // running a for loop to compare elements.
+        for (Exercise item : exercisesList) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item.getExerciseName().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredlist.add(item);
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            // if no item is added in filtered list we are
+            // displaying a toast message as no data found.
+            Toast.makeText(getActivity(), "No Data Found..", Toast.LENGTH_SHORT).show();
+        } else {
+            // at last we are passing that filtered
+            // list to our adapter class.
+            exercisesAdapter.filterList(filteredlist);
+        }
+    }
+
+     */
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -106,7 +133,7 @@ public class NewExercisesFragment extends Fragment {
         }
     }
 
-    /*
+
     private void filterList(String text) {
         ArrayList<Exercise> filteredList = new ArrayList<>();
         for(Exercise exercise: exercisesList){
@@ -121,7 +148,6 @@ public class NewExercisesFragment extends Fragment {
         }
     }
 
-     */
 
 
     private void initializeRecyclerView() {

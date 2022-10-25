@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/fragment_new_exercises_searchview"
         android:layout_width="match_parent"
@@ -12,13 +12,13 @@
         android:layout_margin="5dp"
         app:queryHint="Search here..."
         app:iconifiedByDefault="false"/>
-        -->
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_new_exercises_Rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        <!-- android:layout_below="@+id/fragment_new_exercises_searchview"> -->
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fragment_new_exercises_searchview">>
 
      </androidx.recyclerview.widget.RecyclerView>
 

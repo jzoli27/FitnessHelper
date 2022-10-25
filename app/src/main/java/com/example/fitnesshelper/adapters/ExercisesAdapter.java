@@ -33,13 +33,21 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
         exerciseList = exercises;
         //exerciseListFull = new ArrayList<>(exercises);
     }
-    /*
+
     public void setFilteredList(ArrayList<Exercise> filteredList){
         this.exerciseList = filteredList;
         notifyDataSetChanged();
     }
 
-     */
+    // method for filtering our recyclerview items.
+    public void filterList(ArrayList<Exercise> filterlist) {
+        // below line is to add our filtered
+        // list in our course array list.
+        exerciseList = filterlist;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
