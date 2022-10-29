@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fitnesshelper.CreateWorkoutTemplate;
 import com.example.fitnesshelper.DetailsActivity;
@@ -24,6 +26,10 @@ import com.example.fitnesshelper.LoginActivity;
 import com.example.fitnesshelper.R;
 import com.example.fitnesshelper.RegisterActivity;
 import com.example.fitnesshelper.SelectableExercisesActivity;
+import com.example.fitnesshelper.adapters.EditWorkoutTemplateAdapter;
+import com.example.fitnesshelper.adapters.WorkoutTemplateAdapter;
+import com.example.fitnesshelper.interfaces.RecyclerViewInterface;
+import com.example.fitnesshelper.models.Exercise;
 import com.example.fitnesshelper.models.WorkoutTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,12 +39,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class WorkoutFragment extends Fragment {
+public class WorkoutFragment extends Fragment implements RecyclerViewInterface {
     private Button newTemplateBtn;
-    private ListView templateLv;
+    private RecyclerView recyclerView;
+    WorkoutTemplateAdapter workoutTemplateAdapter;
 
     ArrayList<String> workoutTemplates;
     ArrayList<String> wtKeys;
@@ -49,21 +57,24 @@ public class WorkoutFragment extends Fragment {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_workout, container,false);
 
         newTemplateBtn = view.findViewById(R.id.newTemplateBtn);
-        templateLv = view.findViewById(R.id.templateLv);
+        recyclerView = view.findViewById(R.id.templateRv);
 
         workoutTemplates = new ArrayList<>();
         wtKeys = new ArrayList<>();
         wtTemplates = new ArrayList<>();
 
-        initializeListView();
-
-        templateLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        initializeRecyclerView();
+        //initializeListView();
+        /*
+        recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //Itt kellene átdobni a sablon nevet ill a kulcsot a másik oldalnak/activitynek.
@@ -78,6 +89,8 @@ public class WorkoutFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+         */
         newTemplateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,9 +98,57 @@ public class WorkoutFragment extends Fragment {
             }
         });
 
+
+
         return view;
     }
 
+    private void initializeRecyclerView() {
+        workoutTemplateAdapter = new WorkoutTemplateAdapter(getActivity(), wtTemplates, this);
+
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+
+        reference.child(uid).child("Templates").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    WorkoutTemplate workoutTemplate = dataSnapshot.getValue(WorkoutTemplate.class);
+                    //wtTemplates.add(dataSnapshot.getValue(WorkoutTemplate.class));
+
+                    wtTemplates.add(workoutTemplate);
+                    workoutTemplateAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        recyclerView.setAdapter(workoutTemplateAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(getActivity(), "Hello position: " + position, Toast.LENGTH_SHORT).show();
+    }
+
+
+    /*
+    @Override
+    public void onNoteClick(int position) {
+        Intent intent = new Intent(getActivity(), EditWorkoutTemplateActivity.class);
+        //intent.putExtra("excname", wtTemplates.get(i).getName());
+        intent.putExtra("wtKey", wtTemplates.get(position).getWtKey());
+        intent.putExtra("name", wtTemplates.get(position).getName());
+
+        startActivity(intent);
+    }
+
+     */
+
+    /*
     private void initializeListView() {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, workoutTemplates);
         reference = FirebaseDatabase.getInstance().getReference("Users");
@@ -131,5 +192,7 @@ public class WorkoutFragment extends Fragment {
 
         templateLv.setAdapter(adapter);
     }
+
+     */
 
 }

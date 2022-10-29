@@ -23,9 +23,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.fitnesshelper.LoginActivity;
 import com.example.fitnesshelper.MainActivity;
+import com.example.fitnesshelper.models.Exercise;
 import com.example.fitnesshelper.models.Image;
 import com.example.fitnesshelper.R;
 import com.example.fitnesshelper.models.User;
+import com.example.fitnesshelper.models.WorkoutDetails;
+import com.example.fitnesshelper.models.WorkoutTemplate;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,6 +48,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +59,9 @@ public class ProfileFragment extends Fragment {
     private Uri imageUri;
     private ProgressBar profile_progressBar;
     private Button  logoutBtn, logBtn;
+    private ArrayList<String> sablonnev;
+    private ArrayList<String> gyakorlatnev;
+    private ArrayList<WorkoutDetails> hope;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid().toString()).child("profileimg");
@@ -82,41 +89,84 @@ public class ProfileFragment extends Fragment {
         logBtn = view.findViewById(R.id.logBtn);
 
         profile_progressBar.setVisibility(View.INVISIBLE);
+        sablonnev = new ArrayList<>();
+        gyakorlatnev = new ArrayList<>();
+        hope = new ArrayList<>();
 
         //mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+                //Ellenőrzés miatt kapcsoltam ki
+                //FirebaseAuth.getInstance().signOut();
+                //Intent intent = new Intent(getActivity(), LoginActivity.class);
+                //startActivity(intent);
+                Log.d("HOSSZ", "Sablonnev lista hossza: " + sablonnev.size());
+                Log.d("HOSSZ", "Gyakorlatnev lista hossza: " + gyakorlatnev.size());
+                for (int i = 0; i < hope.size(); i++){
+                    Log.d("Hope:", " nev " + hope.get(i).getName() + " db: " + hope.get(i).getRepetitionnumber() + " gyakorlatnev: " + hope.get(i).getExercisename() + " size " + hope.size());
+                }
+
+
             }
         });
 
         logBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userDbReference.child("Templates").child("-NF7dqQFJZmBYC0gJhh2").addListenerForSingleValueEvent(new ValueEventListener() {
+                userDbReference.child("Templates").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        hope.clear();
                         for(DataSnapshot current_data: snapshot.getChildren()){
-                            String key = current_data.getKey();
-                            Log.d("FOR1", "data1: " + key );
+                            WorkoutTemplate workoutTemplate = current_data.getValue(WorkoutTemplate.class);
+                            //sablon név kell a listába
+                            String name = workoutTemplate.getName();
+                            sablonnev.add(name);
+                            Log.d("FOR1", " ");
+                            Log.d("FOR1", "data1: " + current_data.getKey() );
+                            Log.d("FOR1", "for1 children: " + current_data.getChildrenCount() );
+
 
                             for(DataSnapshot current_user_data: current_data.getChildren()){
 
-                                Log.d("FOR2", "FOR2, Handling data "+current_user_data.getKey());
+
+                                Log.d("FOR2", " ");
+                                Log.d("FOR2", "FOR2: "+current_user_data.getKey());
+                                Log.d("FOR2", "for2 children: "+current_user_data.getChildrenCount());
 
                                 for(DataSnapshot for3: current_user_data.getChildren()){
+                                    Exercise exercise = for3.getValue(Exercise.class);
+                                    //gyak név kell a listába
+                                    String excname = exercise.getExerciseName();
+                                    gyakorlatnev.add(excname);
+                                    Log.d("FOR3", " ");
                                     Log.d("FOR3", "FOR3, Handling data "+for3.getKey());
+                                    Log.d("FOR3", "for3 children:, Handling data "+for3.getChildrenCount());
 
                                     for(DataSnapshot for4: for3.getChildren()){
-                                        Log.d("FOR4", "Handling data "+for4.getKey());
+                                        //lehetne egy counter ellenőrizni, hogy hányadszor tesszük be a listába
+                                        //itt lehetne a kiszedett változókkal létrehozni model osztály szerinti példányt és beletenni egy listába
+                                        //Log.d("FOR4", " f1: " + current_data.getKey() + " for3: " + for3.getKey() +" for4: "+for4.getKey());
+                                        //Log.d("FOR4", "wtname: " + name);
+                                        Log.d("FOR4", " ");
+                                        Log.d("FOR4", "for4: " + for4.getKey());
+                                        //Log.d("FOR4", "excname: " + excname);
+                                        //Log.d("FOR4", "childs after for1: " + current_data.getChildrenCount() + "childs after for3: " + for3.getChildrenCount());
+                                        //repetition count kellene a listába
+                                        Log.d("FOR4", "childs after for4: " + for4.getChildrenCount());
+                                        String count = String.valueOf(for4.getChildrenCount());
+                                        int checksum = Integer.valueOf(count);
+                                        if (checksum != 0){
+                                            WorkoutDetails workoutDetails = new WorkoutDetails(name,count,excname);
+                                            hope.add(workoutDetails);
+                                        }
                                     }
                                 }
                             }
                         }
+
                     }
 
                     @Override

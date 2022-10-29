@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/editWorkoutTemplateMainLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
@@ -18,8 +21,36 @@
         android:layout_height="30dp"
         android:layout_toEndOf="@+id/exc_editWorkoutTemplateTv"
         android:src="@drawable/ic_options">
-
     </ImageView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/expandablelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/exc_editWorkoutTemplateTv">
+
+        <TextView
+            android:id="@+id/excercises_row_item_repnumTv"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="3x "
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/excercises_row_item_exercisename"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:layout_marginStart="7dp"
+            android:text="Gyakorlat neve "
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/excercises_row_item_repnumTv"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

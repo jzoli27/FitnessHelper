@@ -25,7 +25,7 @@
         <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/layout/activity_register.xml" value="0.1796875" />
         <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/layout/activity_repetitions.xml" value="0.22" />
         <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/layout/activity_selectable_exercises.xml" value="0.3671875" />
-        <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/layout/edit_workout_template_row.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/layout/edit_workout_template_row.xml" value="0.22" />
         <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/layout/exercise_row_item.xml" value="0.22" />
         <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/layout/exerciserowitem.xml" value="0.13858695652173914" />
         <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/layout/exercises_item.xml" value="0.22" />
@@ -42,6 +42,7 @@
         <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/layout/profile_img_loader_dialog.xml" value="0.16168478260869565" />
         <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/layout/repetition_item.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/layout/test.xml" value="0.3671875" />
+        <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/layout/workout_template_row_item.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/menu/drawer_menu.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/menu/popup_menu.xml" value="0.3671875" />
         <entry key="..\:/Users/Zoli/AndroidStudioProjects/Fitness_Helper/app/src/main/res/menu/search_menu.xml" value="0.3671875" />
