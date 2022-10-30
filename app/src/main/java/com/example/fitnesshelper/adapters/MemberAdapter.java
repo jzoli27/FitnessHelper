@@ -18,8 +18,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     ArrayList<WorkoutTemplate> templateList;
     ArrayList<WorkoutDetails> arrayListMember;
 
-    public MemberAdapter(ArrayList<WorkoutTemplate> templatesname,ArrayList<WorkoutDetails> memberList ){
-        templateList = templatesname;
+    public MemberAdapter(/*ArrayList<WorkoutTemplate> templatesname,*/ArrayList<WorkoutDetails> memberList ){
+        //templateList = templatesname;
         arrayListMember = memberList;
     }
 
@@ -34,14 +34,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-            //for (int i = 0; i < templateList.size(); i++){
-                //if (templateList.get(i).getName().equals("teszt")){
-                    //holder.member_row_repnumberTv.setText(arrayListMember.get(position).getRepetitionnumber());
-                    //holder.member_row_excnameTv.setText(arrayListMember.get(i).getExercisename());
-                    holder.member_row_excnameTv.setText("position: " + position);
-
-                //}
-            //}
+            holder.member_row_repnumberTv.setText(arrayListMember.get(position).getRepetitionnumber());
+            holder.member_row_excnameTv.setText(arrayListMember.get(position).getExercisename());
 
     }
 

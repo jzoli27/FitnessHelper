@@ -27,6 +27,7 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
     Context context;
     ArrayList<WorkoutTemplate> templateList;
     ArrayList<WorkoutDetails> arrayListMember;
+    ArrayList<WorkoutDetails> hope;
     //WorkoutTemplateAdapter.OnNoteListener mOnNoteListener;
 
     public WorkoutTemplateAdapter(Context ct, ArrayList<WorkoutTemplate> templatesname , RecyclerViewInterface recyclerViewInterface , ArrayList<WorkoutDetails> memberList/*,OnNoteListener onNoteListener*/){
@@ -34,7 +35,6 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
         templateList = templatesname;
         this.recyclerViewInterface = recyclerViewInterface;
         arrayListMember = memberList;
-        //this.mOnNoteListener = onNoteListener;
     }
 
     @NonNull
@@ -48,11 +48,18 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
 
     @Override
     public void onBindViewHolder(@NonNull WorkoutTemplateAdapter.MyViewHolder holder, @SuppressLint("RecyclerView")  int position) {
-
+        hope = new ArrayList<>();
 
         holder.workoutTemplate_rowitem_titleTv.setText(templateList.get(position).getName());
 
-        MemberAdapter memberAdapter = new MemberAdapter(templateList, arrayListMember);
+        for (int i = 0; i < arrayListMember.size(); i++){
+            if (templateList.get(position).getName().equals(arrayListMember.get(i).getName())){
+                hope.add(arrayListMember.get(i));
+            }
+        }
+
+
+        MemberAdapter memberAdapter = new MemberAdapter(hope);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
 
