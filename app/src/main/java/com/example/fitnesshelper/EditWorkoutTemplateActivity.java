@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,10 @@ import android.widget.Toast;
 import com.example.fitnesshelper.adapters.EditWorkoutTemplateAdapter;
 import com.example.fitnesshelper.adapters.ExerciseRowItemAdapter;
 import com.example.fitnesshelper.models.Exercise;
+import com.example.fitnesshelper.models.WorkoutDetails;
+import com.example.fitnesshelper.models.WorkoutTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.common.net.InternetDomainName;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +41,7 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity implements Ed
     RecyclerView recyclerView;
     FloatingActionButton addExerciseToWorkoutTemplateBtn;
     private ArrayList<Exercise> exercisesList;
+    ArrayList<String> repnumber;
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference reference;
@@ -46,6 +51,7 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity implements Ed
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     String wtKey,wtName;
     int LAUNCH_SECOND_ACTIVITY = 1;
+    private DatabaseReference userDbReference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());;
 
 
     @Override
@@ -65,6 +71,7 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity implements Ed
         addExerciseToWorkoutTemplateBtn = findViewById(R.id.addToWorkoutTemplateBtn);
 
         exercisesList = new ArrayList<>();
+        repnumber = new ArrayList<>();
 
 
         workoutTemplateNameTv.setText(wtName);
@@ -114,7 +121,9 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity implements Ed
     };
 
     private void initializeRecyclerView() {
-        editWorkoutTemplateAdapter = new EditWorkoutTemplateAdapter(this, exercisesList,this);
+        showLogcat();
+
+        editWorkoutTemplateAdapter = new EditWorkoutTemplateAdapter(this, exercisesList, repnumber,this);
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -137,6 +146,45 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity implements Ed
         recyclerView.setAdapter(editWorkoutTemplateAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+    private void showLogcat() {
+        userDbReference.child("Templates").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot current_data: snapshot.getChildren()){
+                    WorkoutTemplate workoutTemplate = current_data.getValue(WorkoutTemplate.class);
+                    //sablon név kell a listába
+                    String name = workoutTemplate.getName();
+
+                    for(DataSnapshot current_user_data: current_data.getChildren()){
+
+                        for(DataSnapshot for3: current_user_data.getChildren()){
+                            Exercise exercise = for3.getValue(Exercise.class);
+                            //gyak név kell a listába
+                            String excname = exercise.getExerciseName();
+
+                            for(DataSnapshot for4: for3.getChildren()){
+
+                                String count = String.valueOf(for4.getChildrenCount());
+                                int checksum = Integer.valueOf(count);
+                                if (checksum != 0){
+                                    WorkoutDetails workoutDetails = new WorkoutDetails(name,count,excname);
+                                    repnumber.add(count);
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
     private void updateListForRv(){
         reference = FirebaseDatabase.getInstance().getReference("Users");

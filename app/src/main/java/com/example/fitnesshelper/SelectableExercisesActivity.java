@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.example.fitnesshelper.adapters.ExerciseRowItemAdapter;
 import com.example.fitnesshelper.models.Exercise;
+import com.example.fitnesshelper.models.Repetition;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -40,6 +43,7 @@ public class SelectableExercisesActivity extends AppCompatActivity {
 
     String wtKey;
     Integer check;
+    String repetitionKey;
 
 
 
@@ -76,7 +80,6 @@ public class SelectableExercisesActivity extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference("Exercises");
         UsersReference = FirebaseDatabase.getInstance().getReference("Users");
 
-
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -89,6 +92,11 @@ public class SelectableExercisesActivity extends AppCompatActivity {
 
 //                       Ez müködő kód.
                         UsersReference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercise.getExerciseKey()).setValue(exercise);
+                        //proba repetition
+                        repetitionKey = reference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercise.getExerciseKey()).child("Repetition").push().getKey().toString();
+                        Repetition rep = new Repetition("1","0","0",exercise.getExerciseKey(),"0",repetitionKey,"");
+                        UsersReference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercise.getExerciseKey()).child("Repetition").child(repetitionKey).setValue(rep);
+                        //proba repetition
 
                         //talán itt lehetne updatelni az állapotot miután már
                         // hozzáadtuk a listához a true-kat(kijelölteket)
@@ -110,8 +118,29 @@ public class SelectableExercisesActivity extends AppCompatActivity {
 
             }
         });
-        //Toast.makeText(SelectableExercisesActivity.this, "size: " + exercisesStatus.size(), Toast.LENGTH_SHORT).show();
+
     }
+
+    /*
+    private void addreps() {
+        UsersReference = FirebaseDatabase.getInstance().getReference("Users");
+        repetitionKey = reference.child(uid).child("Templates").child(wtKey).child("Exercises").child(excKey).child("Repetition").push().getKey().toString();
+        Repetition rep = new Repetition("1","0","0",excname,"0",repetitionKey,"");
+        //Toast.makeText(Repetitions.this, "size: " + reps.size(), Toast.LENGTH_SHORT).show();
+
+        UsersReference.child(uid).child("Templates").child(wtKey).child("Exercises").child(excKey).child("Repetition").child(repetitionKey).setValue(rep)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(Repetitions.this, "Sikeres ismétlés felvétel", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(Repetitions.this, "Hiba történt, próbáld újra!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+     */
 
     private void initializeRecyclerView() {
         ExerciseRowItemAdapter exerciseRowItemAdapter = new ExerciseRowItemAdapter(this, exercisesList);

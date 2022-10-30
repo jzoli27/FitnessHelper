@@ -8,7 +8,7 @@
     android:gravity="bottom"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
+    <com.example.fitnesshelper.CircularImageView
         android:id="@+id/IV"
         android:layout_width="60dp"
         android:layout_height="60dp"

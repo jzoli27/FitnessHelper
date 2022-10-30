@@ -7,7 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fitnesshelper.fragments.ExercisesFragment;
 import com.example.fitnesshelper.fragments.NewExercisesFragment;
 import com.example.fitnesshelper.fragments.ProfileFragment;
 import com.example.fitnesshelper.fragments.ReminderFragment;
@@ -34,20 +35,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout drawer;
     TextView navHeaderName,navHeaderEmail;
     ImageView navheaderImageView;
     Image img;
+    Bitmap image;
+    Uri uri;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private DatabaseReference userDbReference = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid().toString());
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid().toString()).child("profileimg");
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid().toString());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +61,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                img = new Image();
-                img = snapshot.getValue(Image.class);
+                //img = new Image();
+                //img = snapshot.getValue(Image.class);
+                //Log.d("IMG", "link: " + img.getImageUrl());
+                //uri = Uri.parse(img.getImageUrl());
             }
 
             @Override
@@ -69,12 +73,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+
+        userDbReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = new User();
+                user = snapshot.getValue(User.class);
+                if (user != null){
+
+                    navheaderImageView = (ImageView) headerView.findViewById(R.id.IV);
+                    // Végre így jól betölti a képet
+                    Picasso.get().load(user.getProfileImgLink()).into(navheaderImageView);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("TAG", error.getMessage());
+            }
+        });
+
+
         //Próba a nav_header átírására
         if (mAuth.getCurrentUser() != null){
-            View headerView = navigationView.getHeaderView(0);
             String fullname = mAuth.getCurrentUser().getEmail().toString();
             String[] separated = fullname.split("@");
             //String name = fullname.substring(0,6);
@@ -83,10 +107,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navHeaderName.setText(separated[0]);
             navHeaderEmail.setText(mAuth.getCurrentUser().getEmail().toString());
 
+
+
+
+
+
             //int id = getResources().getIdentifier("com.example.fitnesshelper:drawable/ic_camera",null, null);
-            navheaderImageView = (ImageView) headerView.findViewById(R.id.IV);
-            navheaderImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_camera));
+
+            //navheaderImageView.setImageURI(uri);
+
+            //navheaderImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_camera));
         }
+
 
 
         navigationView.setNavigationItemSelectedListener(MainActivity.this);

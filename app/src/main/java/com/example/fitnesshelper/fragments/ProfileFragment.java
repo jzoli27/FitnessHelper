@@ -178,13 +178,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        //NavigationView navigationView = view.findViewById(R.id.nav_view);
-        //Próba a nav_header átírására
-        //View headerView = navigationView.getHeaderView(0);
-        //TextView navUsername = (TextView) headerView.findViewById(R.id.nav_header_nameTv);
-        //navUsername.setText("teszt");
-
-
 
         imgLoaderIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,11 +202,11 @@ public class ProfileFragment extends Fragment {
                 if (user != null){
                     //nameTv.setText(user.getName());
                     emailTv.setText(user.getEmail());
-                    /* ez jó, csak a tesztelésekhez ne kelljen mindig töltögetni.
+                    //ez jó, csak a tesztelésekhez ne kelljen mindig töltögetni.
                     if (!user.getProfileImgLink().equals("")){
                         Picasso.get().load(user.getProfileImgLink()).into(profileiv);
                     }
-                    */
+
                 }
             }
 

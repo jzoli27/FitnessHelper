@@ -1,38 +1,22 @@
 package com.example.fitnesshelper.fragments;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.core.motion.utils.Utils;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fitnesshelper.DetailsActivity;
-import com.example.fitnesshelper.ExercisesActivity;
 import com.example.fitnesshelper.R;
-import com.example.fitnesshelper.adapters.EditWorkoutTemplateAdapter;
 import com.example.fitnesshelper.adapters.FitnessMachineAdapter;
-import com.example.fitnesshelper.models.Exercise;
 import com.example.fitnesshelper.models.FitnessMachine;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -42,8 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
-import javax.xml.transform.Result;
 
 public class SettingsFragment extends Fragment {
 

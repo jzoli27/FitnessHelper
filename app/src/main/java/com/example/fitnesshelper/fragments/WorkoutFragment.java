@@ -162,7 +162,11 @@ public class WorkoutFragment extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(getActivity(), "Hello position: " + position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Hello position: " + position, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), EditWorkoutTemplateActivity.class);
+        intent.putExtra("wtKey", wtTemplates.get(position).getWtKey());
+        intent.putExtra("name",wtTemplates.get(position).getName());
+        startActivity(intent);
     }
 
 

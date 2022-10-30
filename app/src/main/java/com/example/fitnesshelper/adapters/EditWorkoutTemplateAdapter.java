@@ -20,12 +20,14 @@ import java.util.ArrayList;
 public class EditWorkoutTemplateAdapter extends RecyclerView.Adapter<EditWorkoutTemplateAdapter.MyViewHolder>{
 
     ArrayList<Exercise> exerciseList;
+    ArrayList<String> repnumber;
     Context context;
     OnNoteListener mOnNoteListener;
 
-    public EditWorkoutTemplateAdapter(Context ct, ArrayList<Exercise> exercises, OnNoteListener onNoteListener){
+    public EditWorkoutTemplateAdapter(Context ct, ArrayList<Exercise> exercises, ArrayList<String> Myrepnumber, OnNoteListener onNoteListener){
         context = ct;
         exerciseList = exercises;
+        repnumber = Myrepnumber;
         this.mOnNoteListener = onNoteListener;
     }
 
@@ -43,6 +45,7 @@ public class EditWorkoutTemplateAdapter extends RecyclerView.Adapter<EditWorkout
 
 
         holder.excNameTv.setText(exerciseList.get(position).getExerciseName());
+        holder.excercises_row_item_repnumTv.setText(repnumber.get(position).toString());
 
     }
 
@@ -53,7 +56,7 @@ public class EditWorkoutTemplateAdapter extends RecyclerView.Adapter<EditWorkout
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView excNameTv;
+        TextView excNameTv, excercises_row_item_repnumTv;
         ImageView imageView;
         OnNoteListener onNoteListener;
 
@@ -61,6 +64,7 @@ public class EditWorkoutTemplateAdapter extends RecyclerView.Adapter<EditWorkout
             super(itemView);
 
             excNameTv = itemView.findViewById(R.id.exc_editWorkoutTemplateTv);
+            excercises_row_item_repnumTv = itemView.findViewById(R.id.excercises_row_item_repnumTv);
             imageView = itemView.findViewById(R.id.exc_editWorkoutTemplateIv);
             this.onNoteListener = onNoteListener;
 
