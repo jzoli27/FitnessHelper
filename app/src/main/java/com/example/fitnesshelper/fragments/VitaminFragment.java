@@ -66,7 +66,7 @@ public class VitaminFragment extends Fragment {
                 }
             }
         });
-        */
+
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +87,8 @@ public class VitaminFragment extends Fragment {
                 resetChronometer(view);
             }
         });
+
+         */
 
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -132,30 +134,11 @@ public class VitaminFragment extends Fragment {
         return view;
     }
 
-    public void startChronometer(View v) {
-        if (!running) {
-            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-            chronometer.start();
-            running = true;
-        }
-    }
-
-    public void pauseChronometer(View v) {
-        if (running) {
-            chronometer.stop();
-            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
-            running = false;
-        }
-    }
-
-    public void resetChronometer(View v) {
-        chronometer.setBase(SystemClock.elapsedRealtime());
-        pauseOffset = 0;
-    }
-
     private void startalarm(Calendar c) {
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE) ;
         Intent intent = new Intent(getActivity(), AlertReceiver.class);
+        intent.putExtra("title", "Cím");
+        intent.putExtra("message", "titkos üzenet");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),1,intent,0);
 
         if (c.before(Calendar.getInstance())) {
@@ -179,5 +162,26 @@ public class VitaminFragment extends Fragment {
 
         alarmManager.cancel(pendingIntent);
         alarmTv.setText("Időzítő kikapcsolva");
+    }
+
+    public void startChronometer(View v) {
+        if (!running) {
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.start();
+            running = true;
+        }
+    }
+
+    public void pauseChronometer(View v) {
+        if (running) {
+            chronometer.stop();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            running = false;
+        }
+    }
+
+    public void resetChronometer(View v) {
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        pauseOffset = 0;
     }
 }

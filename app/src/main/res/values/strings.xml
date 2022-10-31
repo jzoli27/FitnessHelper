@@ -4,7 +4,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string-array name="categories">
-        <item></item>
+        <item>Izomcsoport</item>
         <item>Mell</item>
         <item>Hát</item>
         <item>Váll</item>

@@ -58,7 +58,6 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity implements Ed
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_workout_template);
-
         Bundle extras = getIntent().getExtras();
         if (extras != null){
             wtKey = extras.getString("wtKey");

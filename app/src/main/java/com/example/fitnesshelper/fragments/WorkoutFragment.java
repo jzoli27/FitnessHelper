@@ -82,10 +82,11 @@ public class WorkoutFragment extends Fragment implements RecyclerViewInterface {
         newTemplateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(getActivity(), CreateWorkoutTemplate.class));
-                for (int i = 0; i < hope.size(); i++){
-                    Log.d("Hope:", " nev " + hope.get(i).getName() + " db: " + hope.get(i).getRepetitionnumber() + " gyakorlatnev: " + hope.get(i).getExercisename() + " size " + hope.size());
-                }
+                startActivity(new Intent(getActivity(), CreateWorkoutTemplate.class));
+                //logcat azért, hogy lássuk megkapta-e a db lekérdezésből a lista az elemeket.
+                //for (int i = 0; i < hope.size(); i++){
+                //    Log.d("Hope:", " nev " + hope.get(i).getName() + " db: " + hope.get(i).getRepetitionnumber() + " gyakorlatnev: " + hope.get(i).getExercisename() + " size " + hope.size());
+                //}
             }
         });
 

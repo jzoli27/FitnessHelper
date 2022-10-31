@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fitnesshelper.models.User;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
@@ -31,6 +32,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -45,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private BeginSignInRequest signInRequest;
     private SignInClient oneTapClient;
     private GoogleSignInClient mGoogleSignInClient;
+    private DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Users");
 
     /* Bezárja az appot
     @Override
@@ -149,6 +153,13 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             FirebaseUser user = mAuth.getCurrentUser();
+                            //Mükődik, csa első belépéskor hozza létre a fiókot realtime db-ben
+                            boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
+                            if(isNew){
+                                User googleuser = new User("",user.getEmail(),"","");
+                                userReference.child(user.getUid()).setValue(googleuser);
+                            }
+                            //Mükődik, csak első belépéskor hozza létre a fiókot realtime db-ben
                             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                             startActivity(intent);
                         }else{

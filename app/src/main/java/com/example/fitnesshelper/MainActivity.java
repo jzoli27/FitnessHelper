@@ -7,11 +7,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -58,20 +61,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //img = new Image();
-                //img = snapshot.getValue(Image.class);
-                //Log.d("IMG", "link: " + img.getImageUrl());
-                //uri = Uri.parse(img.getImageUrl());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this, "hiba: " + error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -82,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = new User();
                 user = snapshot.getValue(User.class);
-                if (user != null){
+                if (user != null && !user.getProfileImgLink().equals("")){
 
                     navheaderImageView = (ImageView) headerView.findViewById(R.id.IV);
                     // Végre így jól betölti a képet, azonban spórolás miatt kikapcsolom, majd kapcsold vissza!!!!....
@@ -107,16 +96,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navHeaderName.setText(separated[0]);
             navHeaderEmail.setText(mAuth.getCurrentUser().getEmail().toString());
 
-
-
-
-
-
-            //int id = getResources().getIdentifier("com.example.fitnesshelper:drawable/ic_camera",null, null);
-
-            //navheaderImageView.setImageURI(uri);
-
-            //navheaderImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_camera));
         }
 
 
@@ -139,27 +118,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setCheckedItem(R.id.nav_profile);
         }
 
+    }
 
-        /*
-        userDbReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = new User();
-                user = snapshot.getValue(User.class);
-                if (user != null){
-                    navHeaderName.setText(user.getName());
-                    navHeaderEmail.setText(user.getEmail());
-                }
-            }
+    //Ez tölti ki a három "..."-t a jobb felső sarokban, a toolbarban
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.fragments_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("TAG", error.getMessage());
-            }
-        });
+    //Ez kell, hogy ki tudd választani, melyikre klikkelt a user a jobb felső sarokban lévő toolbar opciók közül
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logout:
+                Toast.makeText(this, "Sikeres kijelentkezés", Toast.LENGTH_SHORT).show();
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                break;
 
-         */
+            default:
+                break;
 
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

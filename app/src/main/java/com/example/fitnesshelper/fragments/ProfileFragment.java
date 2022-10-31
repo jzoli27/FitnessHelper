@@ -58,7 +58,8 @@ public class ProfileFragment extends Fragment {
     TextView nameTv,emailTv;
     private Uri imageUri;
     private ProgressBar profile_progressBar;
-    private Button  logoutBtn, logBtn;
+    //Jelenleg már nem haasznált gombok a logoláshoz
+    //private Button  logoutBtn, logBtn;
     private ArrayList<String> sablonnev;
     private ArrayList<String> gyakorlatnev;
     private ArrayList<WorkoutDetails> hope;
@@ -85,8 +86,8 @@ public class ProfileFragment extends Fragment {
         profile_progressBar = view.findViewById(R.id.profile_progressBar);
         nameTv = view.findViewById(R.id.profile_nameTv);
         emailTv = view.findViewById(R.id.profile_emailTv);
-        logoutBtn = view.findViewById(R.id.logoutBtn);
-        logBtn = view.findViewById(R.id.logBtn);
+        //logoutBtn = view.findViewById(R.id.logoutBtn);
+        //logBtn = view.findViewById(R.id.logBtn);
 
         profile_progressBar.setVisibility(View.INVISIBLE);
         sablonnev = new ArrayList<>();
@@ -95,23 +96,27 @@ public class ProfileFragment extends Fragment {
 
         //mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        /*
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Ellenőrzés miatt kapcsoltam ki
-                //FirebaseAuth.getInstance().signOut();
-                //Intent intent = new Intent(getActivity(), LoginActivity.class);
-                //startActivity(intent);
-                Log.d("HOSSZ", "Sablonnev lista hossza: " + sablonnev.size());
-                Log.d("HOSSZ", "Gyakorlatnev lista hossza: " + gyakorlatnev.size());
-                for (int i = 0; i < hope.size(); i++){
-                    Log.d("Hope:", " nev " + hope.get(i).getName() + " db: " + hope.get(i).getRepetitionnumber() + " gyakorlatnev: " + hope.get(i).getExercisename() + " size " + hope.size());
-                }
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                //logolás:
+                //Log.d("HOSSZ", "Sablonnev lista hossza: " + sablonnev.size());
+                //Log.d("HOSSZ", "Gyakorlatnev lista hossza: " + gyakorlatnev.size());
+                //for (int i = 0; i < hope.size(); i++){
+                //    Log.d("Hope:", " nev " + hope.get(i).getName() + " db: " + hope.get(i).getRepetitionnumber() + " gyakorlatnev: " + hope.get(i).getExercisename() + " size " + hope.size());
+                //}
 
 
             }
         });
+         */
 
+        /* logoláshoz ez egy jó minta nézegetni/tesztelni , higy milyen adatokat kapunk....csak legvégső esetben töröld, hátha jól jön még...
         logBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,6 +183,8 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+         */
+
 
         imgLoaderIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,7 +206,7 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = new User();
                 user = snapshot.getValue(User.class);
-                if (user != null){
+                if (user != null && !user.getProfileImgLink().equals("")){
                     //nameTv.setText(user.getName());
                     emailTv.setText(user.getEmail());
                     //ez jó, csak a tesztelésekhez ne kelljen mindig töltögetni.
@@ -218,25 +225,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        /*
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Image img = new Image();
-                img = snapshot.getValue(Image.class);
-                //Toast.makeText(getActivity(),img.getImageUrl() , Toast.LENGTH_SHORT).show();
-                if (img != null){
-                    Picasso.get().load(img.getImageUrl()).into(profileiv);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("TAG", error.getMessage());
-            }
-        });
-
-         */
 
         return view;
     }
@@ -249,7 +237,7 @@ public class ProfileFragment extends Fragment {
             imageUri = data.getData();
             profileiv.setImageURI(imageUri);
 
-            /* ez jó profilkép betöltésre, csak ameddig lehet spórolok a firebase müveletekkel.
+            /* ez jó profilkép feltöltésre?? lehet ez nem kellene ide..vagy de :)
             if (imageUri != null){
                 uploadToFirebase(imageUri);
 

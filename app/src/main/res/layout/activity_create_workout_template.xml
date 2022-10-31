@@ -37,21 +37,34 @@
         android:id="@+id/timeEt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/noteEt"
+        android:layout_centerInParent="true"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="várható időtartam"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/noteEt"/>
+        android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/mouscleGroupEt"
-        android:layout_width="wrap_content"
+    <!--
+    <TextView
+        android:id="@+id/mouscleGroupTv"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
+        android:layout_below="@id/timeEt"
+        android:layout_marginLeft="50dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Izomcsoport"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/timeEt"/>
+        android:text="Izomcsoport"
+        android:textSize="20sp" />
+        -->
+
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="211dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeEt"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="-209dp"
+        android:layout_toStartOf="@id/timeEt" />
 
     <Button
         android:id="@+id/workoutTemplateSaveButton"
@@ -60,7 +73,7 @@
         android:text="Mentés"
         android:layout_centerInParent="true"
         android:layout_marginTop="50dp"
-        android:layout_below="@+id/mouscleGroupEt"/>
+        android:layout_below="@+id/categorySpinner"/>
 
 
 </RelativeLayout>

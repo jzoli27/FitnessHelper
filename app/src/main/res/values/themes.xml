@@ -22,6 +22,9 @@
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
     <item name="android:statusBarColor">@android:color/transparent</item>
+        <!-- Ez lejjeb teszi 4dp-vel a az option itemeket a toolbarban pl a kijelentkezést-->
+    <item name="overlapAnchor">false</item>
+    <item name="android:dropDownVerticalOffset">-4dp</item>
         <!-- <item name="android:statusBarColor">@android:color/transparent</item> -->
     </style>
 </resources>
