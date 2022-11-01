@@ -21,6 +21,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
 import com.example.fitnesshelper.LoginActivity;
 import com.example.fitnesshelper.MainActivity;
 import com.example.fitnesshelper.models.Exercise;
@@ -50,6 +55,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProfileFragment extends Fragment {
@@ -59,14 +65,16 @@ public class ProfileFragment extends Fragment {
     private Uri imageUri;
     private ProgressBar profile_progressBar;
     //Jelenleg már nem haasznált gombok a logoláshoz
-    //private Button  logoutBtn, logBtn;
+    private Button  logoutBtn, logBtn;
     private ArrayList<String> sablonnev;
     private ArrayList<String> gyakorlatnev;
     private ArrayList<WorkoutDetails> hope;
+    private HashMap<String,String> hashmap;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid().toString()).child("profileimg");
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+    private DatabaseReference SettingsReference = FirebaseDatabase.getInstance().getReference("FitnessMachine").child("-NFDIDS4MLabLUWZe1JG").child("Settings");
 
 
     private DatabaseReference userDbReference = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid().toString());
@@ -75,6 +83,10 @@ public class ProfileFragment extends Fragment {
 
     private static final String TAG = "MainActivity";
     private SignInClient mGoogleSignInClient;
+
+    AnyChartView anyChartView;
+    String[] categories = {"Mell", "Váll", "Hát", "Láb"};
+    int[] numbers = {500,800,2000,200};
 
     @Nullable
     @Override
@@ -86,38 +98,69 @@ public class ProfileFragment extends Fragment {
         profile_progressBar = view.findViewById(R.id.profile_progressBar);
         nameTv = view.findViewById(R.id.profile_nameTv);
         emailTv = view.findViewById(R.id.profile_emailTv);
-        //logoutBtn = view.findViewById(R.id.logoutBtn);
-        //logBtn = view.findViewById(R.id.logBtn);
+        logoutBtn = view.findViewById(R.id.logoutBtn);
+        logBtn = view.findViewById(R.id.logBtn);
 
         profile_progressBar.setVisibility(View.INVISIBLE);
         sablonnev = new ArrayList<>();
         gyakorlatnev = new ArrayList<>();
         hope = new ArrayList<>();
+        hashmap = new HashMap<>();
+
+        anyChartView = view.findViewById(R.id.any_chart_view);
+
+        setupPieChart();
 
         //mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        /*
+
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Ellenőrzés miatt kapcsoltam ki
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+                //FirebaseAuth.getInstance().signOut();
+                //Intent intent = new Intent(getActivity(), LoginActivity.class);
+                //startActivity(intent);
+
                 //logolás:
                 //Log.d("HOSSZ", "Sablonnev lista hossza: " + sablonnev.size());
                 //Log.d("HOSSZ", "Gyakorlatnev lista hossza: " + gyakorlatnev.size());
                 //for (int i = 0; i < hope.size(); i++){
                 //    Log.d("Hope:", " nev " + hope.get(i).getName() + " db: " + hope.get(i).getRepetitionnumber() + " gyakorlatnev: " + hope.get(i).getExercisename() + " size " + hope.size());
                 //}
+                for (Map.Entry<String, String> entry : hashmap.entrySet()) {
+                    String key = entry.getKey();
+                    Object value = entry.getValue();
+                    Log.d("HASHMAP", "key =  " + key + " value: " + value);
+                }
 
 
             }
         });
-         */
 
-        /* logoláshoz ez egy jó minta nézegetni/tesztelni , higy milyen adatokat kapunk....csak legvégső esetben töröld, hátha jól jön még...
+        //logoláshoz ez egy jó minta nézegetni/tesztelni , higy milyen adatokat kapunk....csak legvégső esetben töröld, hátha jól jön még...
         logBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SettingsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        hashmap = (HashMap<String, String>) snapshot.getValue();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
+
+        //logoláshoz ez egy jó minta nézegetni/tesztelni , higy milyen adatokat kapunk....csak legvégső esetben töröld, hátha jól jön még...
+        /*
+        logBtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 userDbReference.child("Templates").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -132,6 +175,7 @@ public class ProfileFragment extends Fragment {
                             Log.d("FOR1", " ");
                             Log.d("FOR1", "data1: " + current_data.getKey() );
                             Log.d("FOR1", "for1 children: " + current_data.getChildrenCount() );
+                            hashmap = (HashMap<String, String>) snapshot.getValue();
 
 
                             for(DataSnapshot current_user_data: current_data.getChildren()){
@@ -186,6 +230,7 @@ public class ProfileFragment extends Fragment {
          */
 
 
+
         imgLoaderIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -227,6 +272,18 @@ public class ProfileFragment extends Fragment {
 
 
         return view;
+    }
+
+    public void setupPieChart() {
+        Pie pie = AnyChart.pie();
+        List<DataEntry> dataEntries = new ArrayList<>();
+
+        for (int i = 0; i< categories.length; i++){
+            dataEntries.add(new ValueDataEntry(categories[i], numbers[i]));
+        }
+
+        pie.data(dataEntries);
+        anyChartView.setChart(pie);
     }
 
     @Override

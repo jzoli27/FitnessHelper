@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,8 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fitnesshelper.DetailsActivity;
+import com.example.fitnesshelper.FitnessMachineDetails;
 import com.example.fitnesshelper.R;
 import com.example.fitnesshelper.adapters.FitnessMachineAdapter;
+import com.example.fitnesshelper.interfaces.RecyclerViewInterface;
 import com.example.fitnesshelper.models.FitnessMachine;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,8 +29,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements RecyclerViewInterface {
 
     private static final int ACTION_REQUEST_GALLERY = 111;
     private static final int ACTION_REQUEST_CAMERA = 112;
@@ -38,6 +42,7 @@ public class SettingsFragment extends Fragment {
     private FitnessMachineAdapter fitnessMachineAdapter;
     DatabaseReference reference;
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private DatabaseReference SettingsReference = FirebaseDatabase.getInstance().getReference("FitnessMachine");
 
     @Nullable
     @Override
@@ -61,10 +66,11 @@ public class SettingsFragment extends Fragment {
         return view;
     }
 
-    private void initializeRecyclerView() {
-        fitnessMachineAdapter = new FitnessMachineAdapter(getActivity(), Fmachines);
 
-        reference = FirebaseDatabase.getInstance().getReference("FitnessMachine");
+    private void initializeRecyclerView() {
+        fitnessMachineAdapter = new FitnessMachineAdapter(getActivity(), Fmachines, this);
+
+        reference = FirebaseDatabase.getInstance().getReference("FitnessMachine").child(uid);
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -86,6 +92,15 @@ public class SettingsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
+    @Override
+    public void onItemClick(int position) {
+        //Toast.makeText(getActivity(), "Clicked at position: " + position, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), FitnessMachineDetails.class);
+        intent.putExtra("name",Fmachines.get(position).getMachineName());
+        intent.putExtra("fmKey",Fmachines.get(position).getFmKey());
+        intent.putExtra("imgLink",Fmachines.get(position).getImgLink());
+        startActivity(intent);
+    }
 }
 
 

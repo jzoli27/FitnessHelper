@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -51,6 +52,7 @@ public class DetailsActivity extends AppCompatActivity {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Image");
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private DatabaseReference db;
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     Intent datas;
 
 
@@ -123,7 +125,7 @@ public class DetailsActivity extends AppCompatActivity {
                         String machineName = detailsMachineNameEt.getText().toString();
                         FitnessMachine fitnessMachine = new FitnessMachine(machineName,uri.toString(),imageid);
 
-                        db =  FirebaseDatabase.getInstance().getReference().child("FitnessMachine").child(fitnessMachine.getFmKey());
+                        db =  FirebaseDatabase.getInstance().getReference().child("FitnessMachine").child(uid).child(fitnessMachine.getFmKey());
                         db.setValue(fitnessMachine).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

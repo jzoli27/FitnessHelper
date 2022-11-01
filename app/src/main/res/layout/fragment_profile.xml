@@ -52,12 +52,13 @@
         android:text=""
         android:textSize="20sp" />
 
-    <!--
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_progressBar"
+        android:layout_toEndOf="@+id/profile_imgLoader_Iv"
+        android:layout_below="@+id/profile_imgLoader_Iv"
         android:layout_centerHorizontal="true"
         android:background="@drawable/custom_button"
         android:text="Kijelentkezés"
@@ -72,7 +73,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/logoutBtn"
         android:text="Button" />
-    -->
+
+    <com.anychart.AnyChartView
+        android:id="@+id/any_chart_view"
+        android:layout_width="305dp"
+        android:layout_height="447dp"
+        android:layout_below="@+id/profile_Iv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp" />
+
 
     <!--
         <Button

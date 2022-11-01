@@ -34,7 +34,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-            holder.member_row_repnumberTv.setText(arrayListMember.get(position).getRepetitionnumber());
+            holder.member_row_repnumberTv.setText(arrayListMember.get(position).getRepetitionnumber() + "x ");
             holder.member_row_excnameTv.setText(arrayListMember.get(position).getExercisename());
 
     }

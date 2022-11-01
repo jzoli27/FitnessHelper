@@ -11,20 +11,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fitnesshelper.R;
+import com.example.fitnesshelper.interfaces.RecyclerViewInterface;
 import com.example.fitnesshelper.models.Exercise;
 import com.example.fitnesshelper.models.FitnessMachine;
 
 import java.util.ArrayList;
 
 public class FitnessMachineAdapter extends RecyclerView.Adapter<FitnessMachineAdapter.MyViewHolder> {
+    private final RecyclerViewInterface recyclerViewInterface;
 
     ArrayList<FitnessMachine> Fmachines;
-
     Context context;
 
-    public FitnessMachineAdapter(Context ct, ArrayList<FitnessMachine> fmachinesList){
+
+    public FitnessMachineAdapter(Context ct, ArrayList<FitnessMachine> fmachinesList, RecyclerViewInterface recyclerViewInterface){
         context = ct;
         Fmachines = fmachinesList;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
@@ -33,7 +36,7 @@ public class FitnessMachineAdapter extends RecyclerView.Adapter<FitnessMachineAd
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fitnessmachine_item,parent,false);
 
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, recyclerViewInterface);
     }
 
     @Override
@@ -47,14 +50,28 @@ public class FitnessMachineAdapter extends RecyclerView.Adapter<FitnessMachineAd
         return Fmachines.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView machineNameTv;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             machineNameTv = itemView.findViewById(R.id.fitnessmachine_settings_NameTv);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (recyclerViewInterface != null){
+                        int pos = getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
+
         }
+
     }
+
 }

@@ -95,7 +95,7 @@ public class WorkoutFragment extends Fragment implements RecyclerViewInterface {
         return view;
     }
 
-    private void showLogcat() {
+    private void initializeData() {
         userDbReference.child("Templates").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -134,7 +134,7 @@ public class WorkoutFragment extends Fragment implements RecyclerViewInterface {
     }
 
     private void initializeRecyclerView() {
-        showLogcat();
+        initializeData();
 
         workoutTemplateAdapter = new WorkoutTemplateAdapter(getActivity(), wtTemplates, this, hope);
 
