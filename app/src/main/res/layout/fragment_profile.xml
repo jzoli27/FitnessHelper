@@ -73,6 +73,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/logoutBtn"
         android:text="Button" />
+    <Spinner
+        android:id="@+id/profilespinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logBtn"/>
 
     <com.anychart.AnyChartView
         android:id="@+id/any_chart_view"
@@ -80,7 +85,9 @@
         android:layout_height="447dp"
         android:layout_below="@+id/profile_Iv"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="100dp" >
+
+    </com.anychart.AnyChartView>
 
 
     <!--

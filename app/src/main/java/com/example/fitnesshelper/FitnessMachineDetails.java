@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -57,17 +58,24 @@ public class FitnessMachineDetails extends AppCompatActivity {
         logBtn = findViewById(R.id.logBtn);
 
         hashmap = new HashMap<>();
-        Settingkey = new ArrayList<>();
-        Settingvalue = new ArrayList<>();
+        Settingkey = new ArrayList<String>();
+        Settingvalue = new ArrayList<String>();
 
 
 
         Bundle extras = getIntent().getExtras();
         if (extras != null){
+
             fitnessMName = extras.getString("name");
             fmKey = extras.getString("fmKey");
             fmImgLink = extras.getString("imgLink");
         }
+        //Intent i = getIntent();
+        //Settingkey.clear();
+        //Settingvalue.clear();
+        //Settingkey =  (ArrayList<String>) getIntent().getSerializableExtra("keys");
+        //Settingvalue =  (ArrayList<String>) getIntent().getSerializableExtra("values");
+
 
         fmName.setText(fitnessMName);
 
@@ -76,8 +84,8 @@ public class FitnessMachineDetails extends AppCompatActivity {
         //Settingvalue.add("qwe");
         //Settingvalue.add("qwe");
 
-
-        initializeRecyclerView();
+        initializeData();
+        //initializeRecyclerView();
 
         logBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +121,10 @@ public class FitnessMachineDetails extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 hashmap = (HashMap<String, String>) snapshot.getValue();
+                if (!hashmap.isEmpty()){
+                    handleData();
+                    initializeRecyclerView();
+                }
 
 
             }
@@ -124,15 +136,19 @@ public class FitnessMachineDetails extends AppCompatActivity {
         });
     }
 
-    private void initializeRecyclerView() {
-        initializeData();
-
-        fmDetailsAdapter = new FMDetailsAdapter(this, Settingkey, Settingvalue);
-
+    private void handleData() {
+        Settingkey.clear();
+        Settingvalue.clear();
         for (Map.Entry<String, String> entry : hashmap.entrySet()) {
-            Settingkey.add(entry.getKey());
+            Settingkey.add(entry.getKey() + " :");
             Settingvalue.add(entry.getValue());
         }
+    }
+
+    private void initializeRecyclerView() {
+        //initializeData();
+
+        fmDetailsAdapter = new FMDetailsAdapter(this, Settingkey, Settingvalue);
 
         recyclerView.setAdapter(fmDetailsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

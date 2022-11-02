@@ -11,9 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,7 +61,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     ImageView profileiv, imgLoaderIv;
     TextView nameTv,emailTv;
@@ -84,6 +87,9 @@ public class ProfileFragment extends Fragment {
     private static final String TAG = "MainActivity";
     private SignInClient mGoogleSignInClient;
 
+    private Spinner spinner;
+    String type ;
+
     AnyChartView anyChartView;
     String[] categories = {"Mell", "Váll", "Hát", "Láb"};
     int[] numbers = {500,800,2000,200};
@@ -100,6 +106,14 @@ public class ProfileFragment extends Fragment {
         emailTv = view.findViewById(R.id.profile_emailTv);
         logoutBtn = view.findViewById(R.id.logoutBtn);
         logBtn = view.findViewById(R.id.logBtn);
+        spinner = view.findViewById(R.id.profilespinner);
+
+        type = "";
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.categories, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
         profile_progressBar.setVisibility(View.INVISIBLE);
         sablonnev = new ArrayList<>();
@@ -109,7 +123,33 @@ public class ProfileFragment extends Fragment {
 
         anyChartView = view.findViewById(R.id.any_chart_view);
 
-        setupPieChart();
+        /*
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                type = adapterView.getItemAtPosition(i).toString().trim();
+                switch (type){
+                    case "Mell":
+                        anyChartView.setVisibility(View.VISIBLE);
+                        setupPieChart();
+                        break;
+                    default:
+                        //Toast.makeText(getActivity(), "tipus: " + type, Toast.LENGTH_SHORT).show();
+                        anyChartView.setVisibility(View.GONE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+         */
+
+
+        //setupPieChart();
 
         //mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
@@ -343,5 +383,15 @@ public class ProfileFragment extends Fragment {
         ContentResolver cr = getActivity().getApplicationContext().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(imageUri));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        type = adapterView.getItemAtPosition(i).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

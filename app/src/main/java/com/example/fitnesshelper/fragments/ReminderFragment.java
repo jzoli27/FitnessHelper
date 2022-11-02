@@ -119,7 +119,6 @@ public class ReminderFragment extends Fragment {
                         datesByDatePicker.add(materialDatePicker.getHeaderText().toString());
                         arrayAdapter.notifyDataSetChanged();
                         */
-
                         getParentFragmentManager().beginTransaction().replace(R.id.fragment_container,
                                 new WorkoutFragment()).commit();
                         // in the above statement, getHeaderText

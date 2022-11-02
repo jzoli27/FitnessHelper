@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class SettingsFragment extends Fragment implements RecyclerViewInterface {
 
@@ -44,6 +45,10 @@ public class SettingsFragment extends Fragment implements RecyclerViewInterface 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private DatabaseReference SettingsReference = FirebaseDatabase.getInstance().getReference("FitnessMachine");
 
+    private ArrayList<String> Settingkey;
+    private ArrayList<String> Settingvalue;
+    private HashMap<String,String> hashmap;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,6 +56,15 @@ public class SettingsFragment extends Fragment implements RecyclerViewInterface 
 
         recyclerView = view.findViewById(R.id.setting_machinesRv);
         Fmachines = new ArrayList<>();
+
+        Settingkey = new ArrayList<>();
+        Settingvalue = new ArrayList<>();
+        hashmap = new HashMap<>();
+
+        //Settingkey.add("asd");
+        //Settingkey.add("asd");
+        //Settingvalue.add("qwe");
+        //Settingvalue.add("qwe");
 
         photoButton = (Button) view.findViewById(R.id.picturesBtn);
         photoButton.setOnClickListener(new View.OnClickListener() {
@@ -92,14 +106,52 @@ public class SettingsFragment extends Fragment implements RecyclerViewInterface 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
+    public void initializeData(int position){
+        SettingsReference.child(uid).child(Fmachines.get(position).getFmKey()).child("Settings").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                hashmap = (HashMap<String, String>) snapshot.getValue();
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     @Override
     public void onItemClick(int position) {
-        //Toast.makeText(getActivity(), "Clicked at position: " + position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), FitnessMachineDetails.class);
         intent.putExtra("name",Fmachines.get(position).getMachineName());
         intent.putExtra("fmKey",Fmachines.get(position).getFmKey());
         intent.putExtra("imgLink",Fmachines.get(position).getImgLink());
         startActivity(intent);
+        //Toast.makeText(getActivity(), "Clicked at position: " + position, Toast.LENGTH_SHORT).show();
+        //initializeData(position);
+        /*
+        if (!hashmap.isEmpty()){
+            for (Map.Entry<String, String> entry : hashmap.entrySet()) {
+                //String key = entry.getKey();
+                //Object value = entry.getValue();
+                Settingkey.add(entry.getKey());
+                Settingvalue.add(entry.getValue());
+            }
+            if (!Settingvalue.isEmpty() && !Settingkey.isEmpty()){
+                Intent intent = new Intent(getActivity(), FitnessMachineDetails.class);
+                intent.putExtra("keys", Settingkey);
+                intent.putExtra("values", Settingvalue);
+                intent.putExtra("name",Fmachines.get(position).getMachineName());
+                intent.putExtra("fmKey",Fmachines.get(position).getFmKey());
+                intent.putExtra("imgLink",Fmachines.get(position).getImgLink());
+                startActivity(intent);
+            }
+        }
+
+         */
+
     }
 }
 
