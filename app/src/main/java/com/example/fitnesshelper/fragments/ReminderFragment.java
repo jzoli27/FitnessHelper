@@ -51,6 +51,7 @@ public class ReminderFragment extends Fragment implements RecyclerViewInterface 
     private ArrayList<String> wtTemplates;
     private ArrayList<WorkoutTemplate> reminderWtTemplates;
     private HashMap<String,String> listedDates;
+    private ArrayList<String> TemplateDateKeys;
     //private ListView listOfDates;
 
     private TextView mShowSelectedDateText;
@@ -78,6 +79,7 @@ public class ReminderFragment extends Fragment implements RecyclerViewInterface 
         wtTemplates = new ArrayList<>();
         reminderWtTemplates = new ArrayList<>();
         listedDates = new HashMap<>();
+        TemplateDateKeys = new ArrayList<>();
         //listOfDates = view.findViewById(R.id.listOfDates);
 
         checkFragment = "ures";
@@ -143,11 +145,14 @@ public class ReminderFragment extends Fragment implements RecyclerViewInterface 
 
                         //mShowSelectedDateText.setText("Selected Date is : " + materialDatePicker.getHeaderText());
                         date = materialDatePicker.getHeaderText();
+                        String tdateKey = plannedworkoutref.child(uid).push().getKey();
                         datesByDatePicker.add(materialDatePicker.getHeaderText().toString());
+                        wtTemplates.add("Kérlek válassz sablont");
+                        TemplateDateKeys.add(tdateKey);
 
                         listedDates.put("date", date);
-                        TemplateDate templateDate = new TemplateDate(date,"Kérlek válassz sablont");
-                        plannedworkoutref.child(uid).push().setValue(templateDate);
+                        TemplateDate templateDate = new TemplateDate(date,"Kérlek válassz sablont",tdateKey);
+                        plannedworkoutref.child(uid).child(tdateKey).setValue(templateDate);
                         //Toast.makeText(getActivity(), "Date: " + date, Toast.LENGTH_SHORT).show();
                         reminderAdapter.notifyItemInserted(datesByDatePicker.size());
                     }
@@ -175,7 +180,8 @@ public class ReminderFragment extends Fragment implements RecyclerViewInterface 
 
                     datesByDatePicker.add(templateDate.getDate());
                     wtTemplates.add(templateDate.getTemplateName());
-                    reminderAdapter.notifyDataSetChanged();
+                    TemplateDateKeys.add(templateDate.getTemplateDateKey());
+
                     for(DataSnapshot current_user_data: current_data.getChildren()){
                         Log.d("FOR2", "VALUE: "+current_user_data.getValue().toString());
                         //String actualdate = current_user_data.getValue().toString();
@@ -191,12 +197,14 @@ public class ReminderFragment extends Fragment implements RecyclerViewInterface 
 
                     }
                 }
-                /*
-                if (!checkFragment.equals("ures") && !datesByDatePicker.isEmpty()){
-                    wtTemplates.set(datepPosition,reminderWtTemplates.get(checkFragmentPos).getName());
+
+                if (!checkFragment.equals("ures") && !datesByDatePicker.isEmpty()) {
+                    TemplateDate tdate = new TemplateDate(datesByDatePicker.get(datepPosition), reminderWtTemplates.get(checkFragmentPos).getName(), TemplateDateKeys.get(datepPosition));
+                    wtTemplates.set(datepPosition, reminderWtTemplates.get(checkFragmentPos).getName());
+                    plannedworkoutref.child(uid).child(TemplateDateKeys.get(datepPosition)).setValue(tdate);
                     checkFragment = "ures";
                 }
-                 */
+                reminderAdapter.notifyDataSetChanged();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
