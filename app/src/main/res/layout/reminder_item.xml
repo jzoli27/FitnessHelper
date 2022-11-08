@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/reminder_DateTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dátum"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="62dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/reminder_WtNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/reminder_DateTv"
+        android:text="Kérlek válassz sablont"
+        android:textSize="20sp" />
+</RelativeLayout>

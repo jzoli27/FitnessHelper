@@ -30,7 +30,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/profile_Iv"
-        android:background="@drawable/ic_camera" />
+        android:background="@drawable/ic_gallery_1" />
 
     <ProgressBar
         android:id="@+id/profile_progressBar"
@@ -52,32 +52,34 @@
         android:text=""
         android:textSize="20sp" />
 
+    <!--
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/logoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_imgLoader_Iv"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@+id/profile_imgLoader_Iv"
+            android:background="@drawable/custom_button"
+            android:text="Kijelentkezés"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/logoutBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/profile_imgLoader_Iv"
-        android:layout_below="@+id/profile_imgLoader_Iv"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/custom_button"
-        android:text="Kijelentkezés"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF" />
 
+        <Button
+            android:id="@+id/logBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logoutBtn"
+            android:text="Button" />
+            -->
 
-
-    <Button
-        android:id="@+id/logBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logoutBtn"
-        android:text="Button" />
     <Spinner
         android:id="@+id/profilespinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/logBtn"/>
+        android:layout_below="@+id/profile_Iv"
+        android:layout_marginTop="75dp" />
 
     <com.anychart.AnyChartView
         android:id="@+id/any_chart_view"

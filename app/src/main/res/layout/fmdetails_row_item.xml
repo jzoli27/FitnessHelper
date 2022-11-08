@@ -9,9 +9,10 @@
         android:id="@+id/fmDetails_row_item_settingNameEt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:hint="Beállítás neve: "
         android:textSize="18sp"
-        android:layout_marginLeft="20dp"/>
+        android:background="@null"/>
 
     <EditText
         android:id="@+id/fmDetails_row_item_settingValueEt"
@@ -21,7 +22,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Érték"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:background="@null"/>
 
     <ImageView
         android:id="@+id/fmDetails_row_item_optionsIv"

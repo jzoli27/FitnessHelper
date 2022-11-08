@@ -15,6 +15,24 @@
         android:text="TextView"
         android:textSize="24sp" />
 
+
+    <ImageView
+        android:id="@+id/fmDetails_cameraIv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/fmDetailsNameTv"
+        app:srcCompat="@drawable/ic_camera"
+        android:layout_marginLeft="10dp"/>
+
+    <ImageView
+        android:id="@+id/fmDetails_galleryIv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/fmDetails_cameraIv"
+        app:srcCompat="@drawable/ic_gallery_1" />
+
     <ImageView
         android:id="@+id/fmDetailsIv"
         android:layout_width="wrap_content"
@@ -27,14 +45,27 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fmDetailsRv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/fmDetailsIv" />
+        android:layout_height="400dp"
+        android:layout_below="@+id/fmDetailsIv">
 
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addSettingBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fmDetailsRv"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_add_black" />
+
+    <!--
     <Button
         android:id="@+id/logBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logcat"
-        android:layout_toEndOf="@id/fmDetailsIv"/>
+        android:layout_toEndOf="@id/fmDetailsIv"
+        android:text="Logcat" />
+        -->
 
 </RelativeLayout>

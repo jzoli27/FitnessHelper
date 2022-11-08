@@ -11,4 +11,11 @@
         <item>Láb</item>
     </string-array>
 
+    <string-array name="diagrams">
+        <item>Válassz diagramot</item>
+        <item>Diagram1</item>
+        <item>Diagram2</item>
+        <item>Diagram3</item>
+    </string-array>
+
 </resources>

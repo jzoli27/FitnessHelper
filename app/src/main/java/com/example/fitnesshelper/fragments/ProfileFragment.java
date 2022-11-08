@@ -94,6 +94,11 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
     String[] categories = {"Mell", "Váll", "Hát", "Láb"};
     int[] numbers = {500,800,2000,200};
 
+    String[] categories2 = {"Mell", "Váll", "Hát", "Láb"};
+    int[] numbers2 = {200,400,1500,500};
+
+    List<DataEntry> dataEntries = new ArrayList<>();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -104,13 +109,13 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         profile_progressBar = view.findViewById(R.id.profile_progressBar);
         nameTv = view.findViewById(R.id.profile_nameTv);
         emailTv = view.findViewById(R.id.profile_emailTv);
-        logoutBtn = view.findViewById(R.id.logoutBtn);
-        logBtn = view.findViewById(R.id.logBtn);
+        //logoutBtn = view.findViewById(R.id.logoutBtn);
+        //logBtn = view.findViewById(R.id.logBtn);
         spinner = view.findViewById(R.id.profilespinner);
 
         type = "";
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.categories, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.diagrams, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
@@ -123,15 +128,19 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
         anyChartView = view.findViewById(R.id.any_chart_view);
 
-        /*
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 type = adapterView.getItemAtPosition(i).toString().trim();
                 switch (type){
-                    case "Mell":
+                    case "Diagram1":
                         anyChartView.setVisibility(View.VISIBLE);
                         setupPieChart();
+                        break;
+                    case "Diagram2":
+                        anyChartView.setVisibility(View.VISIBLE);
+                        setupPieChart2();
                         break;
                     default:
                         //Toast.makeText(getActivity(), "tipus: " + type, Toast.LENGTH_SHORT).show();
@@ -146,14 +155,11 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
             }
         });
 
-         */
 
-
-        //setupPieChart();
 
         //mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-
+        /*
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,7 +184,10 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
             }
         });
 
+         */
+
         //logoláshoz ez egy jó minta nézegetni/tesztelni , higy milyen adatokat kapunk....csak legvégső esetben töröld, hátha jól jön még...
+        /*
         logBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -195,6 +204,8 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
                 });
             }
         });
+
+         */
 
 
         //logoláshoz ez egy jó minta nézegetni/tesztelni , higy milyen adatokat kapunk....csak legvégső esetben töröld, hátha jól jön még...
@@ -274,8 +285,8 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         imgLoaderIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent galleryIntent = new Intent();
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+                //galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, 2);
 
@@ -295,12 +306,10 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
                     //nameTv.setText(user.getName());
                     emailTv.setText(user.getEmail());
                     //ez jó, csak a tesztelésekhez ne kelljen mindig töltögetni.
-                    /*
+
                     if (!user.getProfileImgLink().equals("")){
                         Picasso.get().load(user.getProfileImgLink()).into(profileiv);
                     }
-
-                     */
                 }
             }
 
@@ -316,10 +325,20 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
     public void setupPieChart() {
         Pie pie = AnyChart.pie();
-        List<DataEntry> dataEntries = new ArrayList<>();
 
         for (int i = 0; i< categories.length; i++){
             dataEntries.add(new ValueDataEntry(categories[i], numbers[i]));
+        }
+
+        pie.data(dataEntries);
+        anyChartView.setChart(pie);
+    }
+
+    public void setupPieChart2() {
+        Pie pie = AnyChart.pie();
+
+        for (int i = 0; i< categories2.length; i++){
+            dataEntries.add(new ValueDataEntry(categories2[i], numbers2[i]));
         }
 
         pie.data(dataEntries);
@@ -334,7 +353,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
             imageUri = data.getData();
             profileiv.setImageURI(imageUri);
 
-            /* ez jó profilkép feltöltésre?? lehet ez nem kellene ide..vagy de :)
+            /* ez jó profilkép feltöltésre?? lehet ez nem kellene ide..vagy de ?:)
             if (imageUri != null){
                 uploadToFirebase(imageUri);
 

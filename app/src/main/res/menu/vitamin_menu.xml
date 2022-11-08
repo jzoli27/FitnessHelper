@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <item
-        android:id="@+id/action_popup_enable"
-        android:title="Szerkesztés" />
+        android:id="@+id/action_popup_start"
+        android:title="Indítás" />
     <item
-        android:id="@+id/action_popup_edit"
+        android:id="@+id/action_popup_turnoff"
+        android:title="Kikapcsolás" />
+    <item
+        android:id="@+id/action_popup_save"
         android:title="Mentés" />
     <item
         android:id="@+id/action_popup_delete"
         android:title="Törlés" />
+
 
 </menu>

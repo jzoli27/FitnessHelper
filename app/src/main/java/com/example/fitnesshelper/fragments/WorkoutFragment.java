@@ -17,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,6 +51,7 @@ public class WorkoutFragment extends Fragment implements RecyclerViewInterface {
     private Button newTemplateBtn;
     private RecyclerView recyclerView;
     WorkoutTemplateAdapter workoutTemplateAdapter;
+    TextView templateTitle;
 
     ArrayList<String> workoutTemplates;
     ArrayList<String> wtKeys;
@@ -61,6 +64,9 @@ public class WorkoutFragment extends Fragment implements RecyclerViewInterface {
     private DatabaseReference userDbReference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
     private ArrayList<WorkoutDetails> hope;
 
+    private String checkFragment;
+    private int datePosition;
+
 
 
     @Nullable
@@ -72,16 +78,29 @@ public class WorkoutFragment extends Fragment implements RecyclerViewInterface {
 
         newTemplateBtn = view.findViewById(R.id.newTemplateBtn);
         recyclerView = view.findViewById(R.id.templateRv);
+        templateTitle = view.findViewById(R.id.templateTitle);
 
         workoutTemplates = new ArrayList<>();
         wtKeys = new ArrayList<>();
         wtTemplates = new ArrayList<>();
+        checkFragment = "ures";
+
+        if (getArguments() != null){
+            checkFragment = getArguments().getString("Key");
+            datePosition = getArguments().getInt("datepos");
+        }
+
+        if (checkFragment.equals("reminder")){
+            templateTitle.setText("Válassz egy sablont!");
+        }
+
 
         initializeRecyclerView();
 
         newTemplateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Toast.makeText(getActivity(), "checkfragment: " + checkFragment, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getActivity(), CreateWorkoutTemplate.class));
                 //logcat azért, hogy lássuk megkapta-e a db lekérdezésből a lista az elemeket.
                 //for (int i = 0; i < hope.size(); i++){
@@ -91,7 +110,7 @@ public class WorkoutFragment extends Fragment implements RecyclerViewInterface {
         });
 
 
-
+        //return inflater.inflate(R.layout.fragment_workout, container, false);
         return view;
     }
 
@@ -164,10 +183,25 @@ public class WorkoutFragment extends Fragment implements RecyclerViewInterface {
     @Override
     public void onItemClick(int position) {
         //Toast.makeText(getActivity(), "Hello position: " + position, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getActivity(), EditWorkoutTemplateActivity.class);
-        intent.putExtra("wtKey", wtTemplates.get(position).getWtKey());
-        intent.putExtra("name",wtTemplates.get(position).getName());
-        startActivity(intent);
+        if (checkFragment.equals("reminder")){
+            //Toast.makeText(getActivity(), "fragment: " + checkFragment, Toast.LENGTH_SHORT).show();
+            ReminderFragment fragment = new ReminderFragment();
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            Bundle args = new Bundle();
+            args.putString("Key", "workout");
+            args.putInt("Pos", position);
+            args.putInt("datePos", datePosition);
+
+            fragment.setArguments(args);
+            ft.replace(R.id.fragment_container, fragment);
+            ft.commit();
+        }else{
+            Intent intent = new Intent(getActivity(), EditWorkoutTemplateActivity.class);
+            intent.putExtra("wtKey", wtTemplates.get(position).getWtKey());
+            intent.putExtra("name",wtTemplates.get(position).getName());
+            startActivity(intent);
+        }
     }
 
 

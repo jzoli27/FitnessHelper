@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,11 +21,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fitnesshelper.AlertReceiver;
 import com.example.fitnesshelper.R;
+import com.example.fitnesshelper.adapters.VitaminAdapter;
+import com.example.fitnesshelper.models.Vitamin;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -37,6 +43,10 @@ public class VitaminFragment extends Fragment {
     private boolean running;
     private long pauseOffset;
 
+    VitaminAdapter vitaminAdapter;
+    RecyclerView recyclerView;
+    private ArrayList<Vitamin> vitaminalarms;
+
 
     @Nullable
     @Override
@@ -44,15 +54,19 @@ public class VitaminFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_vitamin, container,false);
 
         vitaminTimePickerBtn = view.findViewById(R.id.vitaminTimePickerBtn);
-        cancelBtn = view.findViewById(R.id.cancelBtn);
+        //cancelBtn = view.findViewById(R.id.cancelBtn);
 
         vitaminTitleTv = view.findViewById(R.id.vitaminTitleTv);
+        recyclerView = view.findViewById(R.id.vitaminRv);
         alarmTv = view.findViewById(R.id.alarmTv);
+        vitaminalarms = new ArrayList<>();
 
-        chronometer = view.findViewById(R.id.chronometer);
-        startBtn = view.findViewById(R.id.startBtn);
-        pauseBtn = view.findViewById(R.id.pauseBtn);
-        resetBtn = view.findViewById(R.id.resetBtn);
+
+        //chronometer = view.findViewById(R.id.chronometer);
+
+        //startBtn = view.findViewById(R.id.startBtn);
+        //pauseBtn = view.findViewById(R.id.pauseBtn);
+        //resetBtn = view.findViewById(R.id.resetBtn);
         //chronometer.setFormat("Time: %s");
         //chronometer.setBase(SystemClock.elapsedRealtime());
 
@@ -69,7 +83,7 @@ public class VitaminFragment extends Fragment {
 
          */
 
-
+        /*
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,15 +105,18 @@ public class VitaminFragment extends Fragment {
             }
         });
 
+         */
 
 
-
+        initializeRecyclerView();
+        /*
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cancelAlarm();
             }
         });
+         */
 
         vitaminTimePickerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,12 +128,20 @@ public class VitaminFragment extends Fragment {
                         c.set(Calendar.HOUR_OF_DAY, selectedHour);
                         c.set(Calendar.MINUTE, selectedMinute);
                         c.set(Calendar.SECOND, 0);
+                        int id = (int)System.currentTimeMillis();
 
-                        updateTimeText(c);
-                        startalarm(c);
-
+                        //updateTimeText(c);
+                        //startalarm(c,id);
+                        //c.getTime().toString()
                         hour = selectedHour;
                         minute = selectedMinute;
+
+                        String testDate = c.getTime().toString();
+                        String[] splitted = testDate.split("G");
+                        Vitamin vitamin = new Vitamin(splitted[0],"",c,id);
+                        vitaminalarms.add(vitamin);
+                        vitaminAdapter.notifyItemInserted(vitaminalarms.size());
+
                         //vitaminTimePickerBtn.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
                         //itt kéne textviewhoz is adni ha kellene
                         //vitaminTitleTv.setText("Hour: " + hour + " Minute: " + minute);
@@ -137,19 +162,40 @@ public class VitaminFragment extends Fragment {
         return view;
     }
 
-    private void startalarm(Calendar c) {
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        return super.onContextItemSelected(item);
+    }
+
+    private void initializeRecyclerView() {
+        vitaminAdapter = new VitaminAdapter(getActivity(), vitaminalarms);
+
+        recyclerView.setAdapter(vitaminAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+
+    private void startalarm(Calendar c,int id) {
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE) ;
         Intent intent = new Intent(getActivity(), AlertReceiver.class);
         intent.putExtra("title", "Cím");
         intent.putExtra("message", "titkos üzenet");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),1,intent,0);
+        //PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),1,intent,0);
+
 
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
         }
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+
+        // Define pendingintent
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), id,intent, 0);
+        // set() schedules an alarm
+        alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+
+        //alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
+
 
     private void updateTimeText(Calendar c) {
         String alarmDatetext = "Időzítő beállítva:";
@@ -158,10 +204,10 @@ public class VitaminFragment extends Fragment {
         alarmTv.setText(alarmDatetext);
     }
 
-    private void cancelAlarm() {
+    private void cancelAlarm(/*int id*/) {
         AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getActivity(), AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),1,intent,0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),1/*id*/,intent,0);
 
         alarmManager.cancel(pendingIntent);
         alarmTv.setText("Időzítő kikapcsolva");

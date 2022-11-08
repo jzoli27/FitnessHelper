@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/vitamin_item_dateTv"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Dátum"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/vitamin_messageTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Üzenet"
+        android:layout_below="@+id/vitamin_item_optionsIv"
+        android:textSize="20sp"/>
+
+    <ImageView
+        android:id="@+id/vitamin_item_optionsIv"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginLeft="100dp"
+        android:layout_toRightOf="@id/vitamin_item_dateTv"
+        app:srcCompat="@drawable/ic_options" />
+
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+
+        android:layout_toEndOf="@id/vitamin_item_optionsIv" />
+
+    <!--
+    <Button
+        android:id="@+id/vitamin_item_TimePickerBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Idő"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+
+
+
+    <Button
+        android:id="@+id/vitamin_item_cancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="kikapcs"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+    -->
+</RelativeLayout>

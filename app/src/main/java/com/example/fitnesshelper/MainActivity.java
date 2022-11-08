@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     navheaderImageView = (ImageView) headerView.findViewById(R.id.IV);
                     // Végre így jól betölti a képet, azonban spórolás miatt kikapcsolom, majd kapcsold vissza!!!!....
-                    //Picasso.get().load(user.getProfileImgLink()).into(navheaderImageView);
+                    Picasso.get().load(user.getProfileImgLink()).into(navheaderImageView);
                 }
             }
 

@@ -29,8 +29,8 @@
         android:textSize="18sp"
          />
 
-    <ListView
-        android:id="@+id/listOfDates"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listOfDatesRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
