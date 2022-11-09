@@ -1,6 +1,8 @@
 package com.example.fitnesshelper.models;
 
-public class WorkoutTemplate {
+import java.io.Serializable;
+
+public class WorkoutTemplate implements Serializable {
     private String name, note, expectedTime, muscleGroup, wtKey, templateType;
 
     public WorkoutTemplate() {

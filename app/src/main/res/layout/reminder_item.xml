@@ -6,14 +6,14 @@
 
     <TextView
         android:id="@+id/reminder_DateTv"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="Dátum"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="62dp"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="20dp"
-        android:textSize="20sp"/>
+        android:layout_marginTop="15dp"
+        android:text="Dátum"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="62dp" />
 
     <TextView
         android:id="@+id/reminder_WtNameTv"

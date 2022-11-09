@@ -12,9 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".FitnessMachineDetails"
+            android:name=".StartWorkout"
             android:exported="false" />
-        <!-- android:theme="@style/Theme.FitnessHelper" -->
+        <activity
+            android:name=".ExerciseDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FitnessMachineDetails"
+            android:exported="false" /> <!-- android:theme="@style/Theme.FitnessHelper" -->
         <activity
             android:name=".Repetitions"
             android:exported="false" />

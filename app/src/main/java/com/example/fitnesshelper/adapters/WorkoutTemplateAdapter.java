@@ -2,7 +2,10 @@ package com.example.fitnesshelper.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,15 +13,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fitnesshelper.R;
+import com.example.fitnesshelper.StartWorkout;
 import com.example.fitnesshelper.interfaces.RecyclerViewInterface;
 import com.example.fitnesshelper.models.Exercise;
 import com.example.fitnesshelper.models.WorkoutDetails;
 import com.example.fitnesshelper.models.WorkoutTemplate;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplateAdapter.MyViewHolder>{
@@ -69,24 +75,28 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
 
     }
 
+
     @Override
     public int getItemCount() {
         return templateList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder /*implements View.OnClickListener*/{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, PopupMenu.OnMenuItemClickListener{
 
         TextView workoutTemplate_rowitem_titleTv;
         RecyclerView memberRv;
+        ImageView workoutTemplate_rowitem_optionsIv;
         //WorkoutTemplateAdapter.OnNoteListener onNoteListener;
 
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface  /*,OnNoteListener onNoteListener */) {
             super(itemView);
 
             workoutTemplate_rowitem_titleTv = itemView.findViewById(R.id.workoutTemplate_rowitem_titleTv);
+            workoutTemplate_rowitem_optionsIv = itemView.findViewById(R.id.workoutTemplate_rowitem_optionsIv);
+            workoutTemplate_rowitem_optionsIv.setOnClickListener(this);
             memberRv = itemView.findViewById(R.id.memberRv);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            workoutTemplate_rowitem_titleTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (recyclerViewInterface != null){
@@ -100,6 +110,37 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
             //this.onNoteListener = onNoteListener;
 
             //itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            showPopupMenu(view);
+        }
+
+        private void showPopupMenu(View view) {
+            PopupMenu popupMenu = new PopupMenu(view.getContext(),view);
+            popupMenu.inflate(R.menu.workout_menu);
+            popupMenu.setOnMenuItemClickListener(this);
+            popupMenu.show();
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.workout_action_popup_start:
+                    //Toast.makeText(context, "Indítás", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, StartWorkout.class);
+                    //intent.putExtra("size", String.valueOf(templateList.size()));
+                    //intent.putExtra("mylist", templateList);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("ARRAYLIST",templateList);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         /*
