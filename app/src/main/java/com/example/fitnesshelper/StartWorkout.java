@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fitnesshelper.adapters.StartWorkoutAdapter;
+import com.example.fitnesshelper.models.WorkoutDetails;
 import com.example.fitnesshelper.models.WorkoutTemplate;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class StartWorkout extends AppCompatActivity {
     String value;
 
     ArrayList<WorkoutTemplate> templateListed;
-    ArrayList<WorkoutTemplate> lists;
+    ArrayList<WorkoutDetails> detailsList;
     RecyclerView recyclerView;
 
     StartWorkoutAdapter startWorkoutAdapter;
@@ -32,6 +33,7 @@ public class StartWorkout extends AppCompatActivity {
         startWorkout_titleTv = findViewById(R.id.startWorkout_titleTv);
         recyclerView = findViewById(R.id.startWorkoutRv);
         templateListed = new ArrayList<>();
+        detailsList = new ArrayList<>();
 
         //WorkoutTemplate workoutTemplate = new WorkoutTemplate("asd","dsa","dsd","ddd","ert","xdd");
         //templateList.add(workoutTemplate);
@@ -47,23 +49,25 @@ public class StartWorkout extends AppCompatActivity {
         //lists = (ArrayList<WorkoutTemplate>) args.getSerializable("ARRAYLIST");
         Bundle bundleObject = getIntent().getExtras();
 
+        /*
         if (bundleObject != null){
             templateListed = (ArrayList<WorkoutTemplate>) bundleObject.getSerializable("ARRAYLIST");
             initializeRecyclerView();
         }
-
-
-        startWorkout_titleTv.setText(String.valueOf(templateListed.size()));
-
-        for (int i = 0; i< templateListed.size(); i++){
-            Toast.makeText(this, "name: " + templateListed.get(i).getName(), Toast.LENGTH_SHORT).show();
+         */
+        if (bundleObject != null){
+            detailsList = (ArrayList<WorkoutDetails>) bundleObject.getSerializable("ARRAYLIST");
+            templateListed = (ArrayList<WorkoutTemplate>) bundleObject.getSerializable("templatelist");
         }
 
+        initializeRecyclerView();
+
+        startWorkout_titleTv.setText(String.valueOf(templateListed.size()));
 
     }
 
     private void initializeRecyclerView() {
-        startWorkoutAdapter = new StartWorkoutAdapter(this, templateListed);
+        startWorkoutAdapter = new StartWorkoutAdapter(this, detailsList);
 
         recyclerView.setAdapter(startWorkoutAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

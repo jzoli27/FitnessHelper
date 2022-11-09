@@ -8,8 +8,8 @@
         android:id="@+id/member_row_repnumberTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/member_row_excnameTv"

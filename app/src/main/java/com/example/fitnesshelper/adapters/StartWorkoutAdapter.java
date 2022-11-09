@@ -10,17 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fitnesshelper.R;
+import com.example.fitnesshelper.models.WorkoutDetails;
 import com.example.fitnesshelper.models.WorkoutTemplate;
 
 import java.util.ArrayList;
 
 public class StartWorkoutAdapter extends RecyclerView.Adapter<StartWorkoutAdapter.MyViewHolder> {
     Context context;
-    ArrayList<WorkoutTemplate> templateList;
+    //ArrayList<WorkoutTemplate> templateList;
+    ArrayList<WorkoutDetails> arrayListMember;
 
-    public StartWorkoutAdapter(Context context, ArrayList<WorkoutTemplate> templateList) {
+    public StartWorkoutAdapter(Context context,  ArrayList<WorkoutDetails> arrayListMember) {
         this.context = context;
-        this.templateList = templateList;
+        this.arrayListMember = arrayListMember;
     }
 
     @NonNull
@@ -34,21 +36,25 @@ public class StartWorkoutAdapter extends RecyclerView.Adapter<StartWorkoutAdapte
 
     @Override
     public void onBindViewHolder(@NonNull StartWorkoutAdapter.MyViewHolder holder, int position) {
-        holder.start_workout_row_item_TitleTv.setText(templateList.get(position).getName());
+        holder.start_workout_row_item_repnumberTv.setText(arrayListMember.get(position).getRepetitionnumber() + "x ");
+        holder.start_workout_row_item_excnameTv.setText(arrayListMember.get(position).getExercisename());
     }
 
     @Override
     public int getItemCount() {
-        return templateList.size();
+        return arrayListMember.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView start_workout_row_item_TitleTv;
+        TextView start_workout_row_item_repnumberTv,start_workout_row_item_excnameTv;
+        RecyclerView recyclerView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            start_workout_row_item_TitleTv = itemView.findViewById(R.id.start_workout_row_item_TitleTv);
+            start_workout_row_item_repnumberTv = itemView.findViewById(R.id.start_workout_row_item_repnumberTv);
+            start_workout_row_item_excnameTv = itemView.findViewById(R.id.start_workout_row_item_excnameTv);
+            recyclerView = itemView.findViewById(R.id.start_workout_row_item_Rv);
         }
     }
 }

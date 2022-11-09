@@ -34,6 +34,7 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
     ArrayList<WorkoutTemplate> templateList;
     ArrayList<WorkoutDetails> arrayListMember;
     ArrayList<WorkoutDetails> hope;
+    ArrayList<WorkoutDetails> hope2;
     //WorkoutTemplateAdapter.OnNoteListener mOnNoteListener;
 
     public WorkoutTemplateAdapter(Context ct, ArrayList<WorkoutTemplate> templatesname , RecyclerViewInterface recyclerViewInterface , ArrayList<WorkoutDetails> memberList/*,OnNoteListener onNoteListener*/){
@@ -55,6 +56,7 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
     @Override
     public void onBindViewHolder(@NonNull WorkoutTemplateAdapter.MyViewHolder holder, @SuppressLint("RecyclerView")  int position) {
         hope = new ArrayList<>();
+        hope2 = new ArrayList<>();
 
         holder.workoutTemplate_rowitem_titleTv.setText(templateList.get(position).getName());
 
@@ -128,13 +130,20 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()){
                 case R.id.workout_action_popup_start:
+                    for (int i = 0; i < arrayListMember.size(); i++){
+                        if (templateList.get(getAdapterPosition()).getName().equals(arrayListMember.get(i).getName())){
+                            hope2.add(arrayListMember.get(i));
+                        }
+                    }
+
                     //Toast.makeText(context, "Indítás", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, StartWorkout.class);
                     //intent.putExtra("size", String.valueOf(templateList.size()));
                     //intent.putExtra("mylist", templateList);
 
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("ARRAYLIST",templateList);
+                    bundle.putSerializable("ARRAYLIST",hope2);
+                    bundle.putSerializable("templatelist",templateList);
                     intent.putExtras(bundle);
                     context.startActivity(intent);
                     return true;

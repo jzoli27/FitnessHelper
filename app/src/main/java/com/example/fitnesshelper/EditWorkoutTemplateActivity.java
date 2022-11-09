@@ -161,13 +161,14 @@ public class EditWorkoutTemplateActivity extends AppCompatActivity implements Ed
                             Exercise exercise = for3.getValue(Exercise.class);
                             //gyak név kell a listába
                             String excname = exercise.getExerciseName();
+                            String excKey = exercise.getExerciseKey();
 
                             for(DataSnapshot for4: for3.getChildren()){
 
                                 String count = String.valueOf(for4.getChildrenCount());
                                 int checksum = Integer.valueOf(count);
                                 if (checksum != 0){
-                                    WorkoutDetails workoutDetails = new WorkoutDetails(name,count,excname);
+                                    WorkoutDetails workoutDetails = new WorkoutDetails(name,count,excname,excKey);
                                     repnumber.add(count);
                                 }
                             }

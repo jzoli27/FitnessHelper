@@ -5,11 +5,27 @@
 
 
     <TextView
-        android:id="@+id/start_workout_row_item_TitleTv"
+        android:id="@+id/start_workout_row_item_repnumberTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/start_workout_row_item_excnameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:textSize="20sp"
+        android:layout_toRightOf="@+id/start_workout_row_item_repnumberTv"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/start_workout_row_item_Rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/start_workout_row_item_repnumberTv"/>
 </RelativeLayout>

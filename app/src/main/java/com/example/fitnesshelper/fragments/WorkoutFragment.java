@@ -130,13 +130,14 @@ public class WorkoutFragment extends Fragment implements RecyclerViewInterface {
                             Exercise exercise = for3.getValue(Exercise.class);
                             //gyak név kell a listába
                             String excname = exercise.getExerciseName();
+                            String excKey = exercise.getExerciseKey();
 
                             for(DataSnapshot for4: for3.getChildren()){
                                 //repetition count kellene a listába
                                 String count = String.valueOf(for4.getChildrenCount());
                                 int checksum = Integer.valueOf(count);
                                 if (checksum != 0){
-                                    WorkoutDetails workoutDetails = new WorkoutDetails(name,count,excname);
+                                    WorkoutDetails workoutDetails = new WorkoutDetails(name,count,excname,excKey);
                                     hope.add(workoutDetails);
                                 }
                             }
