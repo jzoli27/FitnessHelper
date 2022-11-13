@@ -144,6 +144,9 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("ARRAYLIST",hope2);
                     bundle.putSerializable("templatelist",templateList);
+                    bundle.putString("wtKey", templateList.get(getAdapterPosition()).getWtKey());
+                    bundle.putString("wtName", templateList.get(getAdapterPosition()).getName());
+
                     intent.putExtras(bundle);
                     context.startActivity(intent);
                     return true;

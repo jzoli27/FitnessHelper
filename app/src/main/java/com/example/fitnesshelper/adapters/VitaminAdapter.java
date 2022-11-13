@@ -4,11 +4,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -56,7 +58,8 @@ public class VitaminAdapter extends RecyclerView.Adapter<VitaminAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, PopupMenu.OnMenuItemClickListener{
-        TextView vitamin_item_dateTv,vitamin_messageTv;
+        TextView vitamin_item_dateTv;
+        EditText vitamin_messageEt;
         ImageView vitamin_item_optionsIv;
         Switch stateSwitch;
         Button vitamin_item_TimePickerBtn, vitamin_item_cancelBtn;
@@ -65,7 +68,7 @@ public class VitaminAdapter extends RecyclerView.Adapter<VitaminAdapter.MyViewHo
             super(itemView);
 
             vitamin_item_dateTv = itemView.findViewById(R.id.vitamin_item_dateTv);
-            vitamin_messageTv = itemView.findViewById(R.id.vitamin_messageTv);
+            vitamin_messageEt = itemView.findViewById(R.id.vitamin_messageEt);
             vitamin_item_optionsIv = itemView.findViewById(R.id.vitamin_item_optionsIv);
             vitamin_item_optionsIv.setOnClickListener(this);
             stateSwitch = itemView.findViewById(R.id.switch1);
@@ -92,8 +95,11 @@ public class VitaminAdapter extends RecyclerView.Adapter<VitaminAdapter.MyViewHo
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()){
                 case R.id.action_popup_start:
+                    Editable message = vitamin_messageEt.getText();
+                    //Toast.makeText(context, "Message: " + message, Toast.LENGTH_SHORT).show();
                     //Toast.makeText(context, "Indítás", Toast.LENGTH_SHORT).show();
-                    startalarm(vitamins.get(getAdapterPosition()).getCalendar(),vitamins.get(getAdapterPosition()).getId());
+
+                    startalarm(vitamins.get(getAdapterPosition()).getCalendar(),vitamins.get(getAdapterPosition()).getId(), message);
                     stateSwitch.setChecked(true);
                     return true;
                 case R.id.action_popup_turnoff:
@@ -114,11 +120,11 @@ public class VitaminAdapter extends RecyclerView.Adapter<VitaminAdapter.MyViewHo
             }
         }
     }
-    private void startalarm(Calendar c, int id) {
+    private void startalarm(Calendar c, int id, Editable message) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE) ;
         Intent intent = new Intent(context, AlertReceiver.class);
         intent.putExtra("title", "Cím");
-        intent.putExtra("message", "titkos üzenet");
+        intent.putExtra("message", message.toString());
         //PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),1,intent,0);
 
 

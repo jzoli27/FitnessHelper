@@ -56,7 +56,7 @@ public class EditWorkoutActivity extends AppCompatActivity implements AdapterVie
                 String exckey = db.getReference("Exercises").push().getKey().toString();
 
 
-                Exercise exercise = new Exercise(excname,"createdbyuser",descript,categoryText," ",exckey, false);
+                Exercise exercise = new Exercise(excname,"createdbyuser",descript,categoryText,"https://firebasestorage.googleapis.com/v0/b/fitnesshelper-ab986.appspot.com/o/android.png?alt=media&token=839d5d62-cbeb-4292-b33c-ddd07b85b8f9",exckey, false);
 
                 db.getReference("Exercises").child(exckey).setValue(exercise).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

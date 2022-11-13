@@ -148,8 +148,8 @@ public class FitnessMachineDetails extends AppCompatActivity {
         addSettingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String key = "id";
-                String value = "id";
+                String key = "Tulajdonság neve:";
+                String value = "érték";
 
 
                 key_value.put(key,value);

@@ -80,16 +80,16 @@ public class FMDetailsAdapter extends RecyclerView.Adapter<FMDetailsAdapter.MyVi
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()){
                 case R.id.action_popup_edit:
-                    Toast.makeText(context, "action_popup_edit at position: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "action_popup_edit at position: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
                     settingNameEt.setEnabled(true);
                     settingValueEt.setEnabled(true);
                     return true;
                 case R.id.action_popup_save:
-                    Toast.makeText(context, "action_popup_save at position: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Mentés " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
 
                     return true;
                 case R.id.action_popup_delete:
-                    Toast.makeText(context, "action_popup_delete at position: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "action_popup_delete at position: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
 
                     return true;
                 default:

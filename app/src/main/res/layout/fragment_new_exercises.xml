@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/fragment_new_exercises_searchview">>
 
-     </androidx.recyclerview.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
      <com.google.android.material.floatingactionbutton.FloatingActionButton
          android:id="@+id/fragment_new_exercises_addbtn"

@@ -12,13 +12,14 @@
         android:text="Dátum"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/vitamin_messageTv"
+        <EditText
+        android:id="@+id/vitamin_messageEt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Üzenet"
         android:layout_below="@+id/vitamin_item_optionsIv"
-        android:textSize="20sp"/>
+        android:text="Üzenet"
+        android:textSize="20sp"
+            android:background="@null"/>
 
     <ImageView
         android:id="@+id/vitamin_item_optionsIv"

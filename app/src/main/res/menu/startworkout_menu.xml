@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:id="@+id/startworkout_add"
+        android:title="Ismétlés hozzáadás"/>
+
+    <item android:id="@+id/startworkout_remove"
+        android:title="Ismétlés törlés"/>
+
+</menu>

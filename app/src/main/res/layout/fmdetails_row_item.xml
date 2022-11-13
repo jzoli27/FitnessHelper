@@ -7,16 +7,16 @@
 
     <EditText
         android:id="@+id/fmDetails_row_item_settingNameEt"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:background="@null"
         android:hint="Beállítás neve: "
-        android:textSize="18sp"
-        android:background="@null"/>
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/fmDetails_row_item_settingValueEt"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/fmDetails_row_item_settingNameEt"
         android:ems="10"
@@ -30,5 +30,5 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         app:srcCompat="@drawable/ic_options" android:layout_toEndOf="@+id/fmDetails_row_item_settingValueEt"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginLeft="30dp"/>
 </RelativeLayout>

@@ -2,6 +2,8 @@ package com.example.fitnesshelper.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +11,23 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fitnesshelper.R;
 import com.example.fitnesshelper.models.Exercise;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,10 +70,29 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull ExercisesAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        final Exercise exercise = exerciseList.get(position);
+        Exercise exercise = exerciseList.get(position);
 
         holder.excName.setText(exerciseList.get(position).getExerciseName());
         holder.excMouscle.setText(exerciseList.get(position).getMuscleGroup());
+
+        //holder.excercises_row_iconIV.setImageBitmap();
+
+        //Picasso.get().load(R.drawable.ic_launcher_foreground).into(holder.excercises_row_iconIV);
+
+        if (!exercise.getIcon().isEmpty()){
+            //holder.excercises_row_iconIV.setImageResource(R.drawable.ic_launcher_foreground);
+            //Toast.makeText(context, "value: " + exercise.getExerciseName(), Toast.LENGTH_SHORT).show();
+            Log.d("HIBA","value: " + exercise.getIcon());
+            Picasso.get().load(exercise.getIcon()).into(holder.excercises_row_iconIV);
+            //Picasso.get().load(exercise.getIcon()).into(holder.excercises_row_iconIV);
+        }
+        Log.d("HIBA2","foron kivul " + exercise.getIcon() + " neve:" + exercise.getExerciseName());
+
+
+
+
+
+
 
         holder.excercises_row_item_description.setText(exerciseList.get(position).getDescription());
         boolean isExpanded = exerciseList.get(position).getSelected();
@@ -80,6 +107,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView excName, excMouscle,excercises_row_item_description;
+        ImageView excercises_row_iconIV;
         RelativeLayout main_relativeLayout;
         ConstraintLayout expandableLayout;
 
@@ -88,6 +116,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
             excName = itemView.findViewById(R.id.excercises_row_item_name_tv);
             excMouscle = itemView.findViewById(R.id.excercises_row_item_mgroup_tv);
             excercises_row_item_description = itemView.findViewById(R.id.excercises_row_item_description);
+            excercises_row_iconIV = itemView.findViewById(R.id.excercises_row_iconIV);
 
             main_relativeLayout = itemView.findViewById(R.id.excercises_row_item_mainlayout);
             expandableLayout = itemView.findViewById(R.id.expandablelayout);
@@ -111,44 +140,4 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
             });
         }
     }
-
-    //Ezek kellenek a keresés funkcióhoz, fentről kivágtam még a: "implements Filterable" sort...
-    /*
-    @Override
-    public Filter getFilter() {
-        return exampleFilter;
-    }
-
-    private Filter exampleFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            List<Exercise> filteredList = new ArrayList<>();
-
-            if (charSequence == null || charSequence.length() == 0){
-                filteredList.addAll(exerciseListFull);
-            }else{
-                String filterPattern = charSequence.toString().toLowerCase().trim();
-
-                for(Exercise item : exerciseListFull){
-                    if (item.getExerciseName().toLowerCase().contains(filterPattern)){
-                        filteredList.add(item);
-                    }
-                }
-            }
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            exerciseList.clear();
-            exerciseList.addAll((List) filterResults.values);
-
-            notifyDataSetChanged();
-        }
-    };
-
-     */
 }
