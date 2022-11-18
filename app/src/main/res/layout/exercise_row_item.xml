@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ImageView
+        android:id="@+id/excercises_row_item_iconIV"
+        android:layout_width="96dp"
+        android:layout_height="69dp"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <TextView
         android:id="@+id/exc_row_item_name_tv"
@@ -12,6 +18,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Gyakorlat neve"
+        android:layout_toEndOf="@+id/excercises_row_item_iconIV"
         android:textSize="16sp" />
 
     <TextView
@@ -23,18 +30,9 @@
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="Izomcsoport:"
+        android:layout_toEndOf="@+id/excercises_row_item_iconIV"
         android:textSize="16sp" />
-
-    <CheckBox
-        android:id="@+id/exc_row_item_checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="35dp"
-        android:layout_toEndOf="@+id/exc_row_item_mgroup_tv"
-        android:text="" />
-
-
+    <!--
     <TextView
         android:id="@+id/border2"
         android:layout_width="match_parent"
@@ -43,6 +41,19 @@
         android:layout_marginEnd="15dp"
         android:layout_alignParentBottom="true"
         android:background="#808080"/>
+        -->
+
+    <CheckBox
+        android:id="@+id/exc_row_item_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="35dp"
+        android:layout_toEndOf="@+id/exc_row_item_mgroup_tv"
+        android:text="" />
+
+
+
 
 
 

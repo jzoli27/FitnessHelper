@@ -14,39 +14,44 @@
         android:layout_marginLeft="10dp"
         android:textSize="20sp"/>
     -->
-    <TextView
-        android:id="@+id/start_workout_row_item_excnameTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
-        android:textSize="18sp"
-        />
+    <RelativeLayout
+        android:id="@+id/start_workout_row_Rlayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
 
-    <ImageView
-        android:id="@+id/start_workout_row_item_optionsIv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_options"
-        android:layout_toRightOf="@+id/start_workout_row_item_excnameTv"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
+        <ImageView
+            android:id="@+id/startworkout_repetition_item_infoIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/start_workout_row_item_optionsIv"
+            app:srcCompat="@drawable/ic_info" />
 
-    <ImageView
-        android:id="@+id/startworkout_repetition_item_infoIv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/start_workout_row_item_optionsIv"
-        app:srcCompat="@drawable/ic_info" />
+        <ImageView
+            android:id="@+id/start_workout_row_item_optionsIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/ic_options"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:id="@+id/start_workout_row_item_excnameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="TextView"
+            android:textSize="18sp" />
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/start_workout_row_item_Rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/start_workout_row_item_excnameTv">
+        android:layout_below="@id/start_workout_row_Rlayout"
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
 

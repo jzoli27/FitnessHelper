@@ -7,7 +7,7 @@
 
     <EditText
         android:id="@+id/repetitionWeightEt"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="150dp"
         android:layout_marginTop="15dp"
@@ -15,23 +15,22 @@
         android:inputType="textPersonName" />
 
 
-
     <EditText
         android:id="@+id/repetitionEt"
-        android:layout_width="50dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
         android:layout_toRightOf="@+id/repetitionWeightEt"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_marginTop="15dp"/>
+        android:inputType="textPersonName" />
 
 
     <EditText
         android:id="@+id/repetitionSerieEt"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="textPersonName" />

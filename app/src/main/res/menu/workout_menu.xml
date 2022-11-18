@@ -5,5 +5,9 @@
         android:id="@+id/workout_action_popup_start"
         android:title="Edzés Indítása" />
 
+    <item
+        android:id="@+id/workout_action_popup_delete"
+        android:title="Sablon törlése" />
+
 
 </menu>

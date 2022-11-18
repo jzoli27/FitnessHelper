@@ -21,6 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Mentés"
+        android:background="@drawable/custom_button"
+        android:textColor="@color/white"
         android:textAllCaps="false"></Button>
 
     <ImageView
@@ -34,11 +36,11 @@
 
     <ImageView
         android:id="@+id/cameraIv"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_toEndOf="@+id/machineTitleTv"
-
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_centerHorizontal="true"
+
+        android:layout_toEndOf="@+id/machineTitleTv"
         app:srcCompat="@drawable/ic_camera" />
 
     <TextView

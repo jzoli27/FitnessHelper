@@ -8,7 +8,7 @@
     tools:context=".MainActivity"
     tools:ignore="HardcodedText">
 
-
+    <!--
     <TextView
         android:id="@+id/show_selected_date"
         android:layout_width="wrap_content"
@@ -17,7 +17,16 @@
         android:layout_marginTop="128dp"
         android:text="Selected Date is : "
         android:textSize="18sp" />
+        -->
 
+
+    <TextView
+        android:id="@+id/reminder_titleTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edzéstervezés"
+        android:textSize="26sp"
+        android:textAlignment="center"/>
 
     <Button
         android:id="@+id/pick_date_button"
@@ -25,13 +34,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="32dp"
-        android:text="Select Date"
+        android:text="Válassz dátumot"
+        android:background="@drawable/custom_button"
+        android:textColor="@color/white"
         android:textSize="18sp"
+        android:textAllCaps="false"
          />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listOfDatesRv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="25dp"/>
 
 </LinearLayout>

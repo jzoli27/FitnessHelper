@@ -43,6 +43,7 @@
         android:hint="várható időtartam"
         android:inputType="textPersonName" />
 
+
     <!--
     <TextView
         android:id="@+id/mouscleGroupTv"
@@ -70,10 +71,12 @@
         android:id="@+id/workoutTemplateSaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mentés"
+        android:layout_below="@+id/categorySpinner"
         android:layout_centerInParent="true"
         android:layout_marginTop="50dp"
-        android:layout_below="@+id/categorySpinner"/>
+        android:background="@drawable/custom_button"
+        android:textColor="@color/white"
+        android:text="Mentés" />
 
 
 </RelativeLayout>

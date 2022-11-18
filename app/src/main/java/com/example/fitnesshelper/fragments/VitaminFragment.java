@@ -28,6 +28,7 @@ import com.example.fitnesshelper.AlertReceiver;
 import com.example.fitnesshelper.R;
 import com.example.fitnesshelper.adapters.VitaminAdapter;
 import com.example.fitnesshelper.models.Vitamin;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class VitaminFragment extends Fragment {
-    Button vitaminTimePickerBtn, cancelBtn, startBtn, pauseBtn , resetBtn;
+    FloatingActionButton vitaminTimePickerBtn, cancelBtn, startBtn, pauseBtn , resetBtn;
     int hour, minute;
     TextView vitaminTitleTv, alarmTv;
     AlarmManager alarmManager;
@@ -56,9 +57,9 @@ public class VitaminFragment extends Fragment {
         vitaminTimePickerBtn = view.findViewById(R.id.vitaminTimePickerBtn);
         //cancelBtn = view.findViewById(R.id.cancelBtn);
 
-        vitaminTitleTv = view.findViewById(R.id.vitaminTitleTv);
+        //vitaminTitleTv = view.findViewById(R.id.vitaminTitleTv);
         recyclerView = view.findViewById(R.id.vitaminRv);
-        alarmTv = view.findViewById(R.id.alarmTv);
+        //alarmTv = view.findViewById(R.id.alarmTv);
         vitaminalarms = new ArrayList<>();
 
 
@@ -178,7 +179,7 @@ public class VitaminFragment extends Fragment {
     private void startalarm(Calendar c,int id) {
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE) ;
         Intent intent = new Intent(getActivity(), AlertReceiver.class);
-        intent.putExtra("title", "Cím");
+        intent.putExtra("title", "Értesítés");
         intent.putExtra("message", "titkos üzenet");
         //PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),1,intent,0);
 

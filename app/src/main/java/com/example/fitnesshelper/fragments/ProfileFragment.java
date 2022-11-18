@@ -29,6 +29,8 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Pie;
+import com.anychart.enums.Align;
+import com.anychart.enums.LegendLayout;
 import com.example.fitnesshelper.LoginActivity;
 import com.example.fitnesshelper.MainActivity;
 import com.example.fitnesshelper.models.Exercise;
@@ -92,7 +94,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
     AnyChartView anyChartView;
     String[] categories = {"Mell", "Váll", "Hát", "Láb"};
-    int[] numbers = {500,800,2000,200};
+    int[] numbers = {40,32,30,10};
 
     String[] categories2 = {"Mell", "Váll", "Hát", "Láb"};
     int[] numbers2 = {200,400,1500,500};
@@ -134,11 +136,11 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 type = adapterView.getItemAtPosition(i).toString().trim();
                 switch (type){
-                    case "Diagram1":
+                    case "Edzések aránylása egymáshoz":
                         anyChartView.setVisibility(View.VISIBLE);
                         setupPieChart();
                         break;
-                    case "Diagram2":
+                    case "Havi edzések":
                         anyChartView.setVisibility(View.VISIBLE);
                         setupPieChart2();
                         break;
@@ -331,6 +333,12 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         }
 
         pie.data(dataEntries);
+        //pie.labels().position("outside");
+
+        pie.legend()
+                .position("center-bottom")
+                .itemsLayout(LegendLayout.HORIZONTAL)
+                .align(Align.CENTER);
         anyChartView.setChart(pie);
     }
 

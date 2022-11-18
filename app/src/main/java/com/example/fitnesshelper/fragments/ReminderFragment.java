@@ -98,8 +98,8 @@ public class ReminderFragment extends Fragment implements RecyclerViewInterface 
 
 
         mPickDateButton = view.findViewById(R.id.pick_date_button);
-        mShowSelectedDateText = view.findViewById(R.id.show_selected_date);
-
+        //mShowSelectedDateText = view.findViewById(R.id.show_selected_date);
+        /*
         mShowSelectedDateText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +109,8 @@ public class ReminderFragment extends Fragment implements RecyclerViewInterface 
                 }
             }
         });
+
+         */
 
         // Ezt próbáld meg beletenni az initializedata()-ba, mert valószinü, hogy nem fut le -> nincs tömb amire tudna itt hivatkozni
         /*

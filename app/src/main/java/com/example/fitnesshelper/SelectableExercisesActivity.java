@@ -40,6 +40,7 @@ public class SelectableExercisesActivity extends AppCompatActivity {
     DatabaseReference reference;
     DatabaseReference UsersReference;
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    ExerciseRowItemAdapter exerciseRowItemAdapter;
 
     String wtKey;
     Integer check;
@@ -143,7 +144,7 @@ public class SelectableExercisesActivity extends AppCompatActivity {
      */
 
     private void initializeRecyclerView() {
-        ExerciseRowItemAdapter exerciseRowItemAdapter = new ExerciseRowItemAdapter(this, exercisesList);
+        exerciseRowItemAdapter = new ExerciseRowItemAdapter(this, exercisesList);
 
         reference = FirebaseDatabase.getInstance().getReference("Exercises");
 

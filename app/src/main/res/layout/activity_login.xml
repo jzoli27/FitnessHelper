@@ -32,28 +32,31 @@
         android:layout_below="@+id/loginEmail_tv"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
-        android:textSize="20sp"
         android:hint="Email cím helye"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:layout_marginLeft="15dp"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/loginPassword_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/loginEmail_et"
+        android:text="Jelszó"
         android:textSize="20sp"
-        android:text="Jelszó" />
+        android:layout_marginTop="10dp"/>
 
     <EditText
         android:id="@+id/loginPassword_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/loginPassword_tv"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
         android:hint="jelszó"
-        android:textSize="20sp"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/below_data_lr"
@@ -103,10 +106,10 @@
         <ImageView
             android:id="@+id/signinWithGoogleBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:layout_marginTop="40dp"
-            app:srcCompat="@drawable/google_grey" />
+            app:srcCompat="@drawable/gmail_blue" />
     </LinearLayout>
 
     <TextView

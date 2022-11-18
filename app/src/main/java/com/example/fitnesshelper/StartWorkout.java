@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.fitnesshelper.adapters.StartWorkoutAdapter;
 import com.example.fitnesshelper.fragments.WorkoutFragment;
@@ -54,6 +55,10 @@ public class StartWorkout extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_workout);
+
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
         value = "ures";
         startWorkout_titleTv = findViewById(R.id.startWorkout_titleTv);
         recyclerView = findViewById(R.id.startWorkoutRv);

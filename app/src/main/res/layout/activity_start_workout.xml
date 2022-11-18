@@ -4,39 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:textAlignment="viewEnd"
     tools:context=".StartWorkout">
+
 
     <TextView
         android:id="@+id/startWorkout_titleTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize="22sp"
         android:text="sablon neve"
-        />
+        android:textSize="26sp" />
 
     <Chronometer
         android:id="@+id/chronometer"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginLeft="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
         android:layout_toEndOf="@+id/startWorkout_titleTv"
+        android:textAlignment="viewEnd"
+        android:layout_marginRight="10dp"
         android:textSize="22sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/startWorkoutRv"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_below="@+id/startWorkout_titleTv" />
+        android:layout_height="490dp"
+        android:layout_below="@+id/startWorkout_titleTv"
+        android:layout_marginTop="50dp" />
 
 
     <Button
         android:id="@+id/start_workout_row_item_finishBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edzés vége"
+        android:layout_below="@+id/startWorkoutRv"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/custom_button"
+        android:text="Edzés vége"
         android:textAllCaps="false"
-        android:layout_below="@+id/startWorkoutRv"/>
+        android:textColor="@color/white" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@id/startWorkout_titleTv">
+
+        <ImageView
+            android:id="@+id/start_workout_startIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_start"
+            android:layout_toStartOf="@id/start_workout_pauseIv"/>
+
+        <ImageView
+            android:id="@+id/start_workout_pauseIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            app:srcCompat="@drawable/ic_pause"
+            android:layout_toStartOf="@+id/start_workout_restart"
+            />
+
+        <ImageView
+            android:id="@+id/start_workout_restart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_restart"
+            android:layout_alignParentRight="true"/>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/start_workout_cancelTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/start_workout_row_item_finishBtn"
+        android:textColor="#0061ef"
+        android:text="Edzés megszakítása"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

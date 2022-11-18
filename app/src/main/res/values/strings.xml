@@ -13,9 +13,8 @@
 
     <string-array name="diagrams">
         <item>Válassz diagramot</item>
-        <item>Diagram1</item>
-        <item>Diagram2</item>
-        <item>Diagram3</item>
+        <item>Edzések aránylása egymáshoz</item>
+        <item>Havi edzések</item>
     </string-array>
 
 </resources>

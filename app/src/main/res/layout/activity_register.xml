@@ -34,6 +34,7 @@
         android:ems="10"
         android:hint="Név"
         android:inputType="textPersonName"
+        android:layout_marginLeft="15dp"
         android:textSize="20sp" />
 
     <TextView
@@ -54,6 +55,7 @@
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName"
+        android:layout_marginLeft="15dp"
         android:textSize="20sp" />
 
     <TextView
@@ -74,6 +76,7 @@
         android:ems="10"
         android:hint="Jelszó"
         android:inputType="textPassword"
+        android:layout_marginLeft="15dp"
         android:textSize="20sp" />
 
     <TextView
@@ -94,6 +97,7 @@
         android:ems="10"
         android:hint="Jelszó megerősítése"
         android:inputType="textPassword"
+        android:layout_marginLeft="15dp"
         android:textSize="20sp" />
 
     <androidx.appcompat.widget.AppCompatButton

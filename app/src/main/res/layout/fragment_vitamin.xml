@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/vitaminTitleTv"
@@ -9,17 +10,21 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="Vitamin"
+        android:layout_marginBottom="15dp"
         android:textSize="30sp" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/vitaminTimePickerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/alarmTv"
+        android:layout_below="@+id/vitaminRv"
+        android:backgroundTint="#0061ef"
         android:text="Idő"
         android:textAllCaps="false"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:srcCompat="@drawable/ic_add_white"
+        app:tint="@color/white" />
 
     <!--
     <Chronometer
@@ -54,6 +59,7 @@
         android:layout_below="@+id/alarmTv"/>
     -->
 
+    <!--
     <TextView
         android:id="@+id/alarmTv"
         android:layout_width="wrap_content"
@@ -62,7 +68,7 @@
         android:layout_centerInParent="true"
         android:text="Nincs időzítő beállítva"
         android:textSize="16sp" />
-
+        -->
     <!--
     <Button
         android:id="@+id/cancelBtn"
@@ -78,8 +84,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vitaminRv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/vitaminTimePickerBtn" />
+        android:layout_height="500dp"
+        android:layout_below="@+id/vitaminTitleTv" />
 
 
 </RelativeLayout>

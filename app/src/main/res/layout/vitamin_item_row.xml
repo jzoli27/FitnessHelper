@@ -10,23 +10,23 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Dátum"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
-        <EditText
+    <EditText
         android:id="@+id/vitamin_messageEt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/vitamin_item_optionsIv"
+        android:background="@null"
         android:text="Üzenet"
-        android:textSize="20sp"
-            android:background="@null"/>
+        android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/vitamin_item_optionsIv"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginLeft="100dp"
-        android:layout_toRightOf="@id/vitamin_item_dateTv"
+        android:layout_toEndOf="@id/switch1"
         app:srcCompat="@drawable/ic_options" />
 
 
@@ -34,8 +34,9 @@
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-
-        android:layout_toEndOf="@id/vitamin_item_optionsIv" />
+        android:layout_marginLeft="100dp"
+        android:layout_toEndOf="@+id/vitamin_item_dateTv"
+         />
 
     <!--
     <Button

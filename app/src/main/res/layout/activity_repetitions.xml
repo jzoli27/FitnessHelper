@@ -31,6 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/repetitionExerciseRv"
         android:layout_centerHorizontal="true"
+        android:backgroundTint="#0061ef"
+        app:tint="@color/white"
         app:srcCompat="@drawable/ic_add_white" />
 
 

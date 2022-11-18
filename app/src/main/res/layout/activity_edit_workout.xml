@@ -56,6 +56,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:text="Mentés"
+        android:background="@drawable/custom_button"
+        android:textColor="@color/white"
         android:textAllCaps="false" />
 
 

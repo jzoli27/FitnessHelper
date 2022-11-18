@@ -57,6 +57,8 @@
         android:layout_below="@+id/fmDetailsRv"
         android:layout_centerHorizontal="true"
         android:clickable="true"
+        android:backgroundTint="#0061ef"
+        app:tint="@color/white"
         app:srcCompat="@drawable/ic_add_black" />
 
     <!--
