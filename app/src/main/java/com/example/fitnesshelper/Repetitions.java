@@ -64,34 +64,40 @@ public class Repetitions extends AppCompatActivity {
         repetitionAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String actualserie = String.valueOf(reps.size()+1);
-                reference = FirebaseDatabase.getInstance().getReference("Users");
-                repetitionKey = reference.child(uid).child("Templates").child(wtKey).child("Exercises").child(excKey).child("Repetition").push().getKey().toString();
-                Repetition rep = new Repetition(actualserie,"0","0",excname,"0",repetitionKey,"");
-                //Toast.makeText(Repetitions.this, "size: " + reps.size(), Toast.LENGTH_SHORT).show();
+                addRepetition();
 
-                reference.child(uid).child("Templates").child(wtKey).child("Exercises").child(excKey).child("Repetition").child(repetitionKey).setValue(rep)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    Toast.makeText(Repetitions.this, "Sikeres ismétlés felvétel", Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Toast.makeText(Repetitions.this, "Hiba történt, próbáld újra!", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-                reps.add(reps.size(),rep);
-                repetitionAdapter.notifyItemInserted(reps.size());
-                //initializeRecyclerView();
             }
         });
+    }
+
+    private void addRepetition() {
+        String actualserie = String.valueOf(reps.size()+1);
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        repetitionKey = reference.child(uid).child("Templates").child(wtKey).child("Exercises").child(excKey).child("Repetition").push().getKey().toString();
+        Repetition rep = new Repetition(actualserie,"0","0",excname,"0",repetitionKey,"");
+        //Toast.makeText(Repetitions.this, "size: " + reps.size(), Toast.LENGTH_SHORT).show();
+
+        reference.child(uid).child("Templates").child(wtKey).child("Exercises").child(excKey).child("Repetition").child(repetitionKey).setValue(rep)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(Repetitions.this, "Sikeres ismétlés felvétel", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(Repetitions.this, "Hiba történt, próbáld újra!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        reps.add(reps.size(),rep);
+        repetitionAdapter.notifyItemInserted(reps.size());
     }
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         return super.onContextItemSelected(item);
     }
+
+
 
     private void initializeRecyclerView() {
         repetitionAdapter = new RepetitionAdapter(this, reps, uid, wtKey, excKey);

@@ -130,6 +130,7 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()){
                 case R.id.workout_action_popup_start:
+                    hope2.clear();
                     for (int i = 0; i < arrayListMember.size(); i++){
                         if (templateList.get(getAdapterPosition()).getName().equals(arrayListMember.get(i).getName())){
                             hope2.add(arrayListMember.get(i));

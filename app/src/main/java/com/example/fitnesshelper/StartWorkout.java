@@ -11,7 +11,9 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -19,6 +21,7 @@ import android.widget.Toolbar;
 import com.example.fitnesshelper.adapters.StartWorkoutAdapter;
 import com.example.fitnesshelper.fragments.WorkoutFragment;
 import com.example.fitnesshelper.models.Exercise;
+import com.example.fitnesshelper.models.Image;
 import com.example.fitnesshelper.models.Repetition;
 import com.example.fitnesshelper.models.WorkoutDetails;
 import com.example.fitnesshelper.models.WorkoutTemplate;
@@ -32,12 +35,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class StartWorkout extends AppCompatActivity {
-    TextView startWorkout_titleTv;
+    TextView startWorkout_titleTv, start_workout_cancelTv;
     String value;
+    ImageView start_workout_startIv, start_workout_pauseIv, start_workout_restart;
+    Button start_workout_row_item_finishBtn;
 
     ArrayList<WorkoutTemplate> templateListed;
     ArrayList<WorkoutDetails> detailsList;
     ArrayList<Repetition> reps;
+    ArrayList<Repetition> savedReps;
 
     String wtKey;
     String wtName;
@@ -61,12 +67,20 @@ public class StartWorkout extends AppCompatActivity {
 
         value = "ures";
         startWorkout_titleTv = findViewById(R.id.startWorkout_titleTv);
+        start_workout_cancelTv = findViewById(R.id.start_workout_cancelTv);
         recyclerView = findViewById(R.id.startWorkoutRv);
         chronometer = findViewById(R.id.chronometer);
+        start_workout_startIv = findViewById(R.id.start_workout_startIv);
+        start_workout_pauseIv = findViewById(R.id.start_workout_pauseIv);
+        start_workout_restart = findViewById(R.id.start_workout_restart);
+        start_workout_row_item_finishBtn = findViewById(R.id.start_workout_row_item_finishBtn);
+
+
 
         templateListed = new ArrayList<>();
         detailsList = new ArrayList<>();
         reps = new ArrayList<>();
+        savedReps = new ArrayList<>();
 
         chronometer.setFormat("%s");
         chronometer.setBase(SystemClock.elapsedRealtime());
@@ -93,19 +107,112 @@ public class StartWorkout extends AppCompatActivity {
             initializeRecyclerView();
         }
          */
+        start_workout_cancelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        /*
+        if (!detailsList.isEmpty()){
+            if (bundleObject != null){
+
+            }
+        }
+         */
+
         if (bundleObject != null){
+            detailsList.clear();
+            templateListed.clear();
             detailsList = (ArrayList<WorkoutDetails>) bundleObject.getSerializable("ARRAYLIST");
             templateListed = (ArrayList<WorkoutTemplate>) bundleObject.getSerializable("templatelist");
             wtKey = bundleObject.getString("wtKey");
             wtName = bundleObject.getString("wtName");
-
         }
 
+        startChronometer(this.findViewById(android.R.id.content));
+
+        startWorkout_titleTv.setText(wtName);
+
+        start_workout_startIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startChronometer(view);
+            }
+        });
+
+        start_workout_pauseIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pauseChronometer(view);
+            }
+        });
+
+        start_workout_restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetChronometer(view);
+            }
+        });
+        savedReps.clear();
+
+        reference.child("Templates").child(wtKey).child("Exercises").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        start_workout_row_item_finishBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                savedReps.clear();
+                reference.child("Templates").child(wtKey).child("Exercises").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot current_data : snapshot.getChildren()) {
+                            for (DataSnapshot current_user_data : current_data.getChildren()) {
+                                for (DataSnapshot for3 : current_user_data.getChildren()) {
+                                    Repetition repetition = for3.getValue(Repetition.class);
+                                    if(repetition.getState().equals("1")){
+                                        savedReps.add(repetition);
+                                    }
+                                }
+                            }
+                        }
+
+                        if(!savedReps.isEmpty()){
+                            int elapsed = (int)(SystemClock.elapsedRealtime() - chronometer.getBase());
+                            String time = String.valueOf(chronometer.getBase());
+                            for (int i = 0; i < savedReps.size(); i++){
+                                Log.d("DETAIL", "time: " + time +"saved: " + savedReps.get(i).getExerciseName());
+                                //saveWorkout();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+            }
+        });
+
+
         if (!uid.isEmpty()){
+            reps.clear();
             reference.child("Templates").child(wtKey).child("Exercises").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    reps.clear();
+
                     for (DataSnapshot current_data : snapshot.getChildren()) {
 
                         Log.d("FOR1", " ");
@@ -138,7 +245,13 @@ public class StartWorkout extends AppCompatActivity {
                         }
                     }
                     */
-                    if (!reps.isEmpty()){
+
+                    if (!reps.isEmpty() && bundleObject != null){
+                        //detailsList.clear();
+                        //templateListed.clear();
+                        //detailsList = (ArrayList<WorkoutDetails>) bundleObject.getSerializable("ARRAYLIST");
+                        //templateListed = (ArrayList<WorkoutTemplate>) bundleObject.getSerializable("templatelist");
+
                         initializeRecyclerView();
                     }
                 }
@@ -149,14 +262,15 @@ public class StartWorkout extends AppCompatActivity {
                 }
             });
         }
-        startChronometer(this.findViewById(android.R.id.content));
 
-        startWorkout_titleTv.setText(wtName);
+    }
+
+    private void saveWorkout() {
 
     }
 
     private void initializeRecyclerView() {
-        startWorkoutAdapter = new StartWorkoutAdapter(this, detailsList, reps);
+        startWorkoutAdapter = new StartWorkoutAdapter(this, detailsList, reps, wtKey);
 
         recyclerView.setAdapter(startWorkoutAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

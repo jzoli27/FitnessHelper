@@ -95,7 +95,7 @@ public class SelectableExercisesActivity extends AppCompatActivity {
                         UsersReference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercise.getExerciseKey()).setValue(exercise);
                         //proba repetition
                         repetitionKey = reference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercise.getExerciseKey()).child("Repetition").push().getKey().toString();
-                        Repetition rep = new Repetition("1","0","0",exercise.getExerciseKey(),"0",repetitionKey,"");
+                        Repetition rep = new Repetition("1","0","0",exercise.getExerciseName(),"0",repetitionKey,"");
                         UsersReference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercise.getExerciseKey()).child("Repetition").child(repetitionKey).setValue(rep);
                         //proba repetition
 

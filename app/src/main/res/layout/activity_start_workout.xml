@@ -53,8 +53,8 @@
             android:id="@+id/start_workout_startIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_start"
-            android:layout_toStartOf="@id/start_workout_pauseIv"/>
+            android:layout_toStartOf="@id/start_workout_pauseIv"
+            app:srcCompat="@drawable/ic_start" />
 
         <ImageView
             android:id="@+id/start_workout_pauseIv"
@@ -69,8 +69,8 @@
             android:id="@+id/start_workout_restart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_restart"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            app:srcCompat="@drawable/ic_restart" />
 
 
     </RelativeLayout>
@@ -80,8 +80,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/start_workout_row_item_finishBtn"
-        android:textColor="#0061ef"
+        android:layout_centerHorizontal="true"
         android:text="Edzés megszakítása"
-        android:layout_centerHorizontal="true"/>
+        android:textColor="#0061ef" />
 
 </RelativeLayout>
