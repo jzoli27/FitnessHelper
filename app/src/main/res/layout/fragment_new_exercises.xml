@@ -5,14 +5,24 @@
     android:layout_height="match_parent">
 
 
+    <TextView
+        android:id="@+id/fragment_new_exercises_titleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Gyakorlatok"
+        android:textSize="20dp" />
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/fragment_new_exercises_searchview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:queryHint="Search here..."
-        app:iconifiedByDefault="false"/>
+        app:queryHint="Keresés ..."
+        app:iconifiedByDefault="false"
+        android:layout_below="@+id/fragment_new_exercises_titleTv">
 
+    </androidx.appcompat.widget.SearchView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_new_exercises_Rv"

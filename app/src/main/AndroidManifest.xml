@@ -33,7 +33,7 @@
             android:name=".EditWorkoutTemplateActivity"
             android:exported="false" />
         <activity
-            android:name=".EditWorkoutActivity"
+            android:name=".activities.EditWorkoutActivity"
             android:exported="false" />
         <activity
             android:name=".CreateWorkoutTemplate"

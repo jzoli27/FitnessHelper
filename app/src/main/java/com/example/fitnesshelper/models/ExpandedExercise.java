@@ -1,15 +1,17 @@
 package com.example.fitnesshelper.models;
 
-public class Exercise {
-    private String exerciseName, exerciseType, description, muscleGroup, icon, exerciseKey;
+public class ExpandedExercise {
+
+    private String exerciseName, exerciseType, description, muscleGroup, icon, exerciseKey, FmName, FmImgLink, FmKey;
     private Boolean selected;
     //private Boolean expanded;
 
-    public Exercise() {
+    public ExpandedExercise() {
 
     }
 
-    public Exercise(String exerciseName, String exerciseType, String description, String muscleGroup, String icon, String exerciseKey, Boolean selected) {
+    public ExpandedExercise(String exerciseName, String exerciseType, String description, String muscleGroup, String icon, String exerciseKey, Boolean selected,
+                            String FmName, String FmImgLink, String FmKey) {
         this.exerciseName = exerciseName;
         this.exerciseType = exerciseType;
         this.description = description;
@@ -17,6 +19,10 @@ public class Exercise {
         this.icon = icon;
         this.exerciseKey = exerciseKey;
         this.selected = selected;
+        this.FmName = FmName;
+        this.FmImgLink = FmImgLink;
+        this.FmKey = FmKey;
+        //this.expanded = expanded;
     }
     /*
     public Boolean getExpanded() {
@@ -28,6 +34,30 @@ public class Exercise {
     }
 
      */
+
+    public String getFmName() {
+        return FmName;
+    }
+
+    public void setFmName(String fmName) {
+        FmName = fmName;
+    }
+
+    public String getFmImgLink() {
+        return FmImgLink;
+    }
+
+    public void setFmImgLink(String fmImgLink) {
+        FmImgLink = fmImgLink;
+    }
+
+    public String getFmKey() {
+        return FmKey;
+    }
+
+    public void setFmKey(String fmKey) {
+        FmKey = fmKey;
+    }
 
     public String getExerciseName() {
         return exerciseName;
@@ -80,4 +110,5 @@ public class Exercise {
     public void setSelected(Boolean selected) {
         this.selected = selected;
     }
+
 }

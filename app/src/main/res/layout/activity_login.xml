@@ -58,7 +58,7 @@
         android:inputType="textPassword"
         android:textSize="20sp" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/below_data_lr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,22 +66,14 @@
         android:orientation="horizontal"
         android:layout_marginTop="15dp">
 
-        <CheckBox
-            android:id="@+id/login_rememberme_cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Emlékezz rám"
-            android:textColor="#0061ef"
-            />
-
         <TextView
             android:id="@+id/login_forgotpwTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Elfelejtett jelszó"
-            android:textColor="#0061ef" />
-    </LinearLayout>
+            android:textColor="#0061ef"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 
 
     <androidx.appcompat.widget.AppCompatButton

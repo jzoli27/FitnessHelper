@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +29,14 @@ import com.example.fitnesshelper.AlertReceiver;
 import com.example.fitnesshelper.R;
 import com.example.fitnesshelper.adapters.VitaminAdapter;
 import com.example.fitnesshelper.models.Vitamin;
+import com.example.fitnesshelper.models.VitaminDetails;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -43,10 +51,13 @@ public class VitaminFragment extends Fragment {
     private Chronometer chronometer;
     private boolean running;
     private long pauseOffset;
+    DatabaseReference vitaminReference = FirebaseDatabase.getInstance().getReference("Vitamin");
+    String uid = FirebaseAuth.getInstance().getUid().toString();
 
     VitaminAdapter vitaminAdapter;
     RecyclerView recyclerView;
     private ArrayList<Vitamin> vitaminalarms;
+    private ArrayList<VitaminDetails> vitaminDetailsList;
 
 
     @Nullable
@@ -61,6 +72,7 @@ public class VitaminFragment extends Fragment {
         recyclerView = view.findViewById(R.id.vitaminRv);
         //alarmTv = view.findViewById(R.id.alarmTv);
         vitaminalarms = new ArrayList<>();
+        vitaminDetailsList = new ArrayList<>();
 
 
         //chronometer = view.findViewById(R.id.chronometer);
@@ -109,7 +121,8 @@ public class VitaminFragment extends Fragment {
          */
 
 
-        initializeRecyclerView();
+        //initializeRecyclerView();
+        initializeData();
         /*
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +156,11 @@ public class VitaminFragment extends Fragment {
                         vitaminalarms.add(vitamin);
                         vitaminAdapter.notifyItemInserted(vitaminalarms.size());
 
+                        VitaminDetails vitaminDetails = new VitaminDetails(selectedHour,selectedMinute,0,"üzenet",id);
+                        String vitaminKey = vitaminReference.push().getKey();
+
+                        vitaminReference.child(uid).child(vitaminKey).setValue(vitaminDetails);
+
                         //vitaminTimePickerBtn.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
                         //itt kéne textviewhoz is adni ha kellene
                         //vitaminTitleTv.setText("Hour: " + hour + " Minute: " + minute);
@@ -168,9 +186,49 @@ public class VitaminFragment extends Fragment {
         return super.onContextItemSelected(item);
     }
 
+    private void initializeData() {
+        vitaminReference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot current_data: snapshot.getChildren()){
+                    VitaminDetails vitaminDetails = current_data.getValue(VitaminDetails.class);
+                    vitaminDetailsList.add(vitaminDetails);
+                    Log.d("vitamin", "value: " + vitaminDetails.getId());
+                }
+
+                if (!vitaminDetailsList.isEmpty()){
+                   initializeRecyclerView();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Error", "hiba: " + error);
+            }
+        });
+
+    }
+
     private void initializeRecyclerView() {
         vitaminAdapter = new VitaminAdapter(getActivity(), vitaminalarms);
+        Log.d("TAG", "size " + vitaminDetailsList.size());
+        //if (!vitaminDetailsList.isEmpty()){
+            Calendar cal = Calendar.getInstance();
+            String vitaDate = cal.getTime().toString();
+            String[] splitteddate = vitaDate.split("G");
 
+
+            for (int i = 0; i< vitaminDetailsList.size(); i++){
+                cal.set(Calendar.HOUR_OF_DAY, vitaminDetailsList.get(i).getHour());
+                cal.set(Calendar.MINUTE, vitaminDetailsList.get(i).getMinute());
+                cal.set(Calendar.SECOND, 0);
+                Vitamin v = new Vitamin(splitteddate[0],vitaminDetailsList.get(i).getMessage(),cal,vitaminDetailsList.get(i).getId());
+                Log.d("VitaminDetails", "value: " + v.getId());
+                vitaminalarms.add(v);
+                vitaminAdapter.notifyItemInserted(vitaminalarms.size());
+            }
+
+        //}
         recyclerView.setAdapter(vitaminAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

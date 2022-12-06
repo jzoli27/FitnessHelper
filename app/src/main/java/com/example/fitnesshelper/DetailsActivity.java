@@ -123,7 +123,7 @@ public class DetailsActivity extends AppCompatActivity {
                         String imageid = databaseReference.push().getKey();
                         Image image = new Image(uri.toString());
                         String machineName = detailsMachineNameEt.getText().toString();
-                        FitnessMachine fitnessMachine = new FitnessMachine(machineName,uri.toString(),imageid);
+                        FitnessMachine fitnessMachine = new FitnessMachine(machineName,uri.toString(),imageid,"Válassz gyakorlatot");
 
                         db =  FirebaseDatabase.getInstance().getReference().child("FitnessMachine").child(uid).child(fitnessMachine.getFmKey());
                         db.setValue(fitnessMachine).addOnCompleteListener(new OnCompleteListener<Void>() {

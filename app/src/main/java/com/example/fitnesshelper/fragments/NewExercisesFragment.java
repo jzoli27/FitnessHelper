@@ -4,27 +4,28 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fitnesshelper.EditWorkoutActivity;
 import com.example.fitnesshelper.R;
-import com.example.fitnesshelper.SelectableExercisesActivity;
-import com.example.fitnesshelper.adapters.EditWorkoutTemplateAdapter;
 import com.example.fitnesshelper.adapters.ExercisesAdapter;
+import com.example.fitnesshelper.interfaces.RecyclerViewInterface;
 import com.example.fitnesshelper.models.Exercise;
+import com.example.fitnesshelper.models.ExpandedExercise;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,21 +33,27 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class NewExercisesFragment extends Fragment {
+public class NewExercisesFragment extends Fragment implements RecyclerViewInterface {
 
     private RecyclerView exercisesRv;
     private FloatingActionButton addBtn;
+    private TextView fragment_new_exercises_titleTv;
     private ArrayList<Exercise> exercisesList;
+    private ArrayList<ExpandedExercise> ExpandedExercisesList;
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference reference;
     private int LAUNCH_SECOND_ACTIVITY = 1;
+
+    String uid = FirebaseAuth.getInstance().getUid().toString();
 
     ExercisesAdapter exercisesAdapter;
 
     SearchView searchView;
 
+    String checkFragment;
+    int machinePosition;
+    String FmKey;
 
     @Nullable
     @Override
@@ -54,11 +61,26 @@ public class NewExercisesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_new_exercises, container,false);
 
         exercisesList = new ArrayList<>();
+        ExpandedExercisesList = new ArrayList<>();
 
         exercisesRv = view.findViewById(R.id.fragment_new_exercises_Rv);
         addBtn = view.findViewById(R.id.fragment_new_exercises_addbtn);
+        fragment_new_exercises_titleTv = view.findViewById(R.id.fragment_new_exercises_titleTv);
         searchView = view.findViewById(R.id.fragment_new_exercises_searchview);
         searchView.clearFocus();
+
+        checkFragment = "ures";
+
+        if (getArguments() != null){
+            checkFragment = getArguments().getString("fragment");
+            machinePosition = getArguments().getInt("machinepos");
+            FmKey = getArguments().getString("fmKey");
+        }
+
+
+        if (!checkFragment.equals("ures")){
+            fragment_new_exercises_titleTv.setText("Válassz gyakorlatot " );
+        }
 
         initializeRecyclerView();
 
@@ -81,6 +103,7 @@ public class NewExercisesFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String text) {
+                //kikapcsoltam a gyakorlatok áthelyezése müvelet végett..majd aktiváld vissza
                 filterList(text);
                 return true;
             }
@@ -133,10 +156,10 @@ public class NewExercisesFragment extends Fragment {
         }
     }
 
-
+    // ez jó keresés volt, majd tedd vissza
     private void filterList(String text) {
-        ArrayList<Exercise> filteredList = new ArrayList<>();
-        for(Exercise exercise: exercisesList){
+        ArrayList<ExpandedExercise> filteredList = new ArrayList<>();
+        for(ExpandedExercise exercise: ExpandedExercisesList){
             if (exercise.getExerciseName().toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(exercise);
             }
@@ -150,23 +173,21 @@ public class NewExercisesFragment extends Fragment {
 
 
 
+
     private void initializeRecyclerView() {
-        exercisesAdapter = new ExercisesAdapter(getActivity(), exercisesList);
+        exercisesAdapter = new ExercisesAdapter(getActivity(), ExpandedExercisesList, this);
+        reference = FirebaseDatabase.getInstance().getReference("Users");
 
-        reference = FirebaseDatabase.getInstance().getReference("Exercises");
-
-        exercisesList.clear();
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        ExpandedExercisesList.clear();
+        reference.child(uid).child("Exercises").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    Exercise exercise = dataSnapshot.getValue(Exercise.class);
-
-                    exercisesList.add(exercise);
+                    ExpandedExercise expandedExercise = dataSnapshot.getValue(ExpandedExercise.class);
+                    ExpandedExercisesList.add(expandedExercise);
                     exercisesAdapter.notifyDataSetChanged();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -175,29 +196,24 @@ public class NewExercisesFragment extends Fragment {
         exercisesRv.setAdapter(exercisesAdapter);
         exercisesRv.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
-    /* ez lenne a keresés, ha jó lenne az action/toolbar
+
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        //MenuInflater inflater1 = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.search_menu,menu);
+    public void onItemClick(int position) {
+        //Toast.makeText(getActivity(), "position: " + position, Toast.LENGTH_SHORT).show();
 
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                exercisesAdapter.getFilter().filter(s);
-
-                return false;
-            }
-        });
-        super.onCreateOptionsMenu(menu, inflater);
+        if (checkFragment.equals("settings")){
+            //Toast.makeText(getActivity(), "fragment: " + checkFragment, Toast.LENGTH_SHORT).show();
+            SettingsFragment fragment = new SettingsFragment();
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            Bundle args = new Bundle();
+            args.putString("fragment", "newexercises");
+            args.putString("exercise", ExpandedExercisesList.get(position).getExerciseName());
+            args.putInt("machinepos", machinePosition);
+            args.putString("fmkey", FmKey);
+            fragment.setArguments(args);
+            ft.replace(R.id.fragment_container, fragment);
+            ft.commit();
+        }
     }
-     */
 }

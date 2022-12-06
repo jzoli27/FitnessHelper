@@ -308,7 +308,6 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
                     //nameTv.setText(user.getName());
                     emailTv.setText(user.getEmail());
                     //ez jó, csak a tesztelésekhez ne kelljen mindig töltögetni.
-
                     if (!user.getProfileImgLink().equals("")){
                         Picasso.get().load(user.getProfileImgLink()).into(profileiv);
                     }

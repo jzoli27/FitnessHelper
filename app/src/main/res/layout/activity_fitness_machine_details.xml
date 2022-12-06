@@ -20,10 +20,10 @@
         android:id="@+id/fmDetails_cameraIv"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/fmDetailsNameTv"
-        app:srcCompat="@drawable/ic_camera"
-        android:layout_marginLeft="10dp"/>
+        app:srcCompat="@drawable/ic_camera" />
 
     <ImageView
         android:id="@+id/fmDetails_galleryIv"
@@ -56,10 +56,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/fmDetailsRv"
         android:layout_centerHorizontal="true"
-        android:clickable="true"
         android:backgroundTint="#0061ef"
-        app:tint="@color/white"
-        app:srcCompat="@drawable/ic_add_black" />
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_add_black"
+        app:tint="@color/white" />
 
     <!--
     <Button

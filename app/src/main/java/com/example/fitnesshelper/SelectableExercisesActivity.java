@@ -80,38 +80,26 @@ public class SelectableExercisesActivity extends AppCompatActivity {
     private void addToWorkout() {
         reference = FirebaseDatabase.getInstance().getReference("Exercises");
         UsersReference = FirebaseDatabase.getInstance().getReference("Users");
-
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 exercisesStatus.clear();
-
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                     Exercise exercise = snapshot.getValue(Exercise.class);
                     if (exercise.getSelected().equals(true)){
                         exercisesStatus.add(exercise);
-
-//                       Ez müködő kód.
                         UsersReference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercise.getExerciseKey()).setValue(exercise);
-                        //proba repetition
+
                         repetitionKey = reference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercise.getExerciseKey()).child("Repetition").push().getKey().toString();
                         Repetition rep = new Repetition("1","0","0",exercise.getExerciseName(),"0",repetitionKey,"");
                         UsersReference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercise.getExerciseKey()).child("Repetition").child(repetitionKey).setValue(rep);
-                        //proba repetition
 
-                        //talán itt lehetne updatelni az állapotot miután már
-                        // hozzáadtuk a listához a true-kat(kijelölteket)
                         reference.child(exercise.getExerciseKey()).child("selected").setValue(false);
-                        //ez jó lenne, csak ugye nem módusul a checkbox értéke illetve pluszba még lefut annyiszer
-                        //ez a function amennyi mezőt visszadobtunk false-ra :( ettől függetlenül mőködhet...
-                        //update: talán single listenerrel müködhet -- eddig jónak tűnik.
                     }
                 }
-                //Toast.makeText(SelectableExercisesActivity.this, "size: " + exercisesStatus.size(), Toast.LENGTH_SHORT).show();
                 Intent returnIntent = new Intent();
                 setResult(Activity.RESULT_CANCELED, returnIntent);
                 finish();
-                //onBackPressed();
             }
 
             @Override
@@ -183,3 +171,49 @@ public class SelectableExercisesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
+/*
+private void addToWorkout() {
+        reference = FirebaseDatabase.getInstance().getReference("Exercises");
+        UsersReference = FirebaseDatabase.getInstance().getReference("Users");
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                exercisesStatus.clear();
+
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    Exercise exercise = snapshot.getValue(Exercise.class);
+                    if (exercise.getSelected().equals(true)){
+                        exercisesStatus.add(exercise);
+
+                        //Ez müködő kód.
+                        UsersReference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercise.getExerciseKey()).setValue(exercise);
+                        //proba repetition
+                        repetitionKey = reference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercise.getExerciseKey()).child("Repetition").push().getKey().toString();
+                        Repetition rep = new Repetition("1","0","0",exercise.getExerciseName(),"0",repetitionKey,"");
+                        UsersReference.child(uid).child("Templates").child(wtKey).child("Exercises").child(exercise.getExerciseKey()).child("Repetition").child(repetitionKey).setValue(rep);
+                        //proba repetition
+
+                        //talán itt lehetne updatelni az állapotot miután már
+                        // hozzáadtuk a listához a true-kat(kijelölteket)
+                        reference.child(exercise.getExerciseKey()).child("selected").setValue(false);
+                        //ez jó lenne, csak ugye nem módusul a checkbox értéke illetve pluszba még lefut annyiszer
+                        //ez a function amennyi mezőt visszadobtunk false-ra :( ettől függetlenül mőködhet...
+                        //update: talán single listenerrel müködhet -- eddig jónak tűnik.
+                    }
+                }
+                //Toast.makeText(SelectableExercisesActivity.this, "size: " + exercisesStatus.size(), Toast.LENGTH_SHORT).show();
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_CANCELED, returnIntent);
+                finish();
+                //onBackPressed();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+ */

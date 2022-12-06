@@ -22,7 +22,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fitnesshelper.R;
+import com.example.fitnesshelper.interfaces.RecyclerViewInterface;
 import com.example.fitnesshelper.models.Exercise;
+import com.example.fitnesshelper.models.ExpandedExercise;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
@@ -33,24 +35,32 @@ import java.util.List;
 
 public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyViewHolder> {
 
-    ArrayList<Exercise> exerciseList;
+    //régi
+    //ArrayList<Exercise> exerciseList;
+    ArrayList<ExpandedExercise> exerciseList;
+
     //ArrayList<Exercise> exerciseListFull;
 
     Context context;
+    RecyclerViewInterface recyclerViewInterface;
 
-    public ExercisesAdapter(Context ct, ArrayList<Exercise> exercises){
+    public ExercisesAdapter(Context ct, ArrayList<ExpandedExercise> exercises, RecyclerViewInterface recyclerViewInterface){
         context = ct;
         exerciseList = exercises;
+        this.recyclerViewInterface = recyclerViewInterface;
         //exerciseListFull = new ArrayList<>(exercises);
     }
 
-    public void setFilteredList(ArrayList<Exercise> filteredList){
+    // ez jó keresés volt, majd tedd vissza
+    public void setFilteredList(ArrayList<ExpandedExercise> filteredList){
         this.exerciseList = filteredList;
         notifyDataSetChanged();
     }
 
+
+
     // method for filtering our recyclerview items.
-    public void filterList(ArrayList<Exercise> filterlist) {
+    public void filterList(ArrayList<ExpandedExercise> filterlist) {
         // below line is to add our filtered
         // list in our course array list.
         exerciseList = filterlist;
@@ -65,12 +75,12 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.exercises_item,parent,false);
 
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, recyclerViewInterface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExercisesAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Exercise exercise = exerciseList.get(position);
+        ExpandedExercise exercise = exerciseList.get(position);
 
         holder.excName.setText(exerciseList.get(position).getExerciseName());
         holder.excMouscle.setText(exerciseList.get(position).getMuscleGroup());
@@ -111,7 +121,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
         RelativeLayout main_relativeLayout;
         ConstraintLayout expandableLayout;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             excName = itemView.findViewById(R.id.excercises_row_item_name_tv);
             excMouscle = itemView.findViewById(R.id.excercises_row_item_mgroup_tv);
@@ -121,14 +131,29 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.MyVi
             main_relativeLayout = itemView.findViewById(R.id.excercises_row_item_mainlayout);
             expandableLayout = itemView.findViewById(R.id.expandablelayout);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (recyclerViewInterface != null){
+                        int pos = getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
+
+            /*
             main_relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Exercise exercise = exerciseList.get(getAdapterPosition());
+                    ExpandedExercise exercise = exerciseList.get(getAdapterPosition());
                     exercise.setSelected(!exercise.getSelected());
                     notifyItemChanged(getAdapterPosition());
                 }
             });
+
+             */
 
             excName.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -49,6 +49,7 @@ public class VitaminAdapter extends RecyclerView.Adapter<VitaminAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.vitamin_item_dateTv.setText(vitamins.get(position).getDate());
+        holder.vitamin_messageEt.setText(vitamins.get(position).getMessage());
 
     }
 

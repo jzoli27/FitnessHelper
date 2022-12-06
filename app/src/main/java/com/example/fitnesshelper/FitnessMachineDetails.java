@@ -120,7 +120,6 @@ public class FitnessMachineDetails extends AppCompatActivity {
                     Picasso.get().load(fitnessMachine.getImgLink()).into(fmImg);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="Csaba"
+        android:text="Név"
         android:textSize="18sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -27,7 +27,7 @@
         android:id="@+id/nav_header_email_Tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="csaba@gmail.com"
+        android:text="example@gmail.com"
         android:textSize="18sp"/>
 
 </LinearLayout>

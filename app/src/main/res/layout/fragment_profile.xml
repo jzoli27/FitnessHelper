@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_nameTv"
         android:layout_centerInParent="true"
-        android:text=""
+        android:text="Email cím"
         android:textSize="20sp" />
 
     <com.example.fitnesshelper.CircularImageView
@@ -85,7 +85,7 @@
         android:layout_height="447dp"
         android:layout_below="@+id/profile_Iv"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp" >
+        android:layout_marginTop="100dp">
 
     </com.anychart.AnyChartView>
 
